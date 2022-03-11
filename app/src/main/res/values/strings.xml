@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Project 1 Pounds</string>
+    <string name="title_activity_progress">Progress</string>
+    <string name="title_activity_penalties">Penalties</string>
+    <string name="title_activity_macros">Macros</string>
+    <string name="title_activity_calories">Calories</string>
+    <string name="title_activity_promotions">Promotions</string>
+</resources>
