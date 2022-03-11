@@ -39,6 +39,12 @@ fun ProgressMain() {
 
         TaskBar()
 
+        Text(text = "Calories: 2100")
+
+        Text(text = "Macros\nProtein: 5g   44%\nCarbohydrates: 76g   38%\nFat: 17g   18%")
+
+        Text(text = "Steps: 5283")
+
     }
 
     Column(

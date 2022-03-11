@@ -40,6 +40,12 @@ fun PenaltiesMain() {
         TopAppBar(title = { Text(text = "Penalties")})
 
         TaskBar()
+        
+        Text(text = "Monthly Progress: -$34")
+
+        Text(text = "Annual Progress: -$112")
+
+        //Insert image of a graph here
 
     }
 
