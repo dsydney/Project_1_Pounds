@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project1Pounds">
         <activity
+            android:name=".PaymentOpt"
+            android:exported="false"
+            android:label="@string/title_activity_payment_opt"
+            android:theme="@style/Theme.Project1Pounds" />
+        <activity
             android:name=".Promotions"
             android:exported="false"
             android:label="@string/title_activity_promotions"
@@ -29,6 +34,7 @@
             android:exported="false"
             android:label="@string/title_activity_penalties"
             android:theme="@style/Theme.Project1Pounds" />
+
         <activity
             android:name=".Progress"
             android:exported="false"
@@ -43,6 +49,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
     </application>
