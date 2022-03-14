@@ -41,6 +41,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Login"
+            android:exported="true"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Project1Pounds">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".Promotions"
             android:exported="false"
             android:label="@string/title_activity_promotions"
