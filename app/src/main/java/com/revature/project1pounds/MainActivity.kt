@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,43 +37,46 @@ fun TaskBar() {
 
     val context = LocalContext.current
 
-    Row() {
-
-        Button(modifier = Modifier.fillMaxWidth(0.2f),
-            onClick = {
-            context.startActivity(Intent(context, Macros::class.java))
-        }) {
-            Text(text = "Macros", fontSize = 9.sp)
+    BottomAppBar(
+        modifier = Modifier
+            .fillMaxWidth(),
+        backgroundColor = MaterialTheme.colors.background,
+        contentColor = MaterialTheme.colors.onBackground,
+    ) {
+        BottomNavigation()
+        {
+            var selectedItem by remember { mutableStateOf(0) }
+            val items = listOf(
+                "Macros",
+                "Calories",
+                "Progress",
+                "Penalties",
+                "Promos"
+            )
+            items.forEachIndexed { index, item ->
+                BottomNavigationItem(
+                    label = { Text(text = item) },
+                    icon = { Icon(Icons.Filled.Info, "") },
+                    selected = selectedItem == index,
+                    onClick = {
+                        selectedItem = index
+                        context.startActivity(
+                            Intent(
+                                context,
+                                when (item) {
+                                    "Macros"    -> Macros::class.java
+                                    "Calories"  -> Calories::class.java
+                                    "Progress"  -> Progress::class.java
+                                    "Penalties" -> Penalties::class.java
+                                    "Promos"    -> Promotions::class.java
+                                    else        -> MainActivity::class.java
+                                }
+                            )
+                        )
+                    }
+                )
+            }
         }
-
-        Button(modifier = Modifier.fillMaxWidth(0.25f),
-            onClick = {
-            context.startActivity(Intent(context, Calories::class.java))
-        }) {
-            Text(text = "Calories", fontSize = 8.sp)
-        }
-
-        Button(modifier = Modifier.fillMaxWidth(0.33333f),
-            onClick = {
-            context.startActivity(Intent(context, Progress::class.java))
-        }) {
-            Text(text = "Progress", fontSize = 7.sp)
-        }
-
-        Button(modifier = Modifier.fillMaxWidth(0.5f),
-            onClick = {
-            context.startActivity(Intent(context, Penalties::class.java))
-        }) {
-            Text(text = "Penalties", fontSize = 6.sp)
-        }
-
-        Button(modifier = Modifier.fillMaxWidth(),
-            onClick = {
-            context.startActivity(Intent(context, Promotions::class.java))
-        }) {
-            Text(text = "Promos", fontSize = 8.sp)
-        }
-
     }
 
 }
