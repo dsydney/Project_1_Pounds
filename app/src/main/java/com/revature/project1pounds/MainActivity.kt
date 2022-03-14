@@ -83,7 +83,7 @@ fun Main() {
 
     Column {
 
-        TopAppBar(title = {Text(text = "Home")})
+        TopAppBar(title = {Text(text = "Home - Pounds App")})
 
         Button(onClick = {
             context.startActivity(Intent(context, Progress::class.java))
