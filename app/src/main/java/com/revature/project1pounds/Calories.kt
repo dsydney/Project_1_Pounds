@@ -52,19 +52,19 @@ class Calories: ComponentActivity() {
                     TopAppBar {
                         Text("Calories")
                     }
-//                    TaskBar()
+                    TaskBar()
                     // Search for food items
                     FoodSearch()
                     // Progress bar of daily Calorie limit
                     CalorieProgress(meals.sumOf { it.calories }.toFloat() / 2000.0f)
                     // List of today's food items
                     SavedFoodItems(meals)
-                    Row(
-                        verticalAlignment = Alignment.Bottom,
-                        modifier = Modifier.fillMaxWidth().weight(1.0f)
-                    ) {
-                        BottomTaskBar()
-                    }
+//                    Row(
+//                        verticalAlignment = Alignment.Bottom,
+//                        modifier = Modifier.fillMaxWidth().weight(1.0f)
+//                    ) {
+//                        BottomTaskBar()
+//                    }
                 }
             }
         }
@@ -135,14 +135,19 @@ fun progressColor(progress: Float): Color {
 @Composable
 fun SavedFoodItems(meals: MutableList<Meal>) {
     Column(modifier = Modifier.padding(8.dp)) {
-//        Text("Today's food:", style = MaterialTheme.typography.h3)
-    LazyColumn(
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        items(meals) { meal ->
-            FoodCard(meal)
+        Text(
+            text = "Today's food:",
+            textAlign = TextAlign.Justify,
+            style = MaterialTheme.typography.h6,
+        )
+        LazyColumn(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            contentPadding = PaddingValues(32.dp)
+        ) {
+            items(meals) { meal ->
+                FoodCard(meal)
+            }
         }
-    }
     }
 }
 
