@@ -63,7 +63,7 @@ fun bankAccountInfo()
                     backgroundColor = Color(211,26,26)),
                 modifier = Modifier
                     .padding(2.dp)
-                    .width(110.dp)
+                    .width(111.dp)
             )
             {
                 Text("Checking",color=Color.White)
