@@ -1,5 +1,6 @@
 package com.revature.project1pounds
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -37,6 +39,8 @@ class BankAccountOpt : ComponentActivity() {
 @Composable
 fun bankAccountInfo()
 {
+    val context = LocalContext.current
+
     Column(modifier=Modifier.verticalScroll(rememberScrollState()),horizontalAlignment = Alignment.CenterHorizontally) {
         Image(painter= painterResource(R.drawable.poundswhitebackground),modifier=Modifier.padding(20.dp), contentDescription = "Pounds logo")
         accountComponent(text ="Please enter your account number" )
@@ -76,7 +80,7 @@ fun bankAccountInfo()
             }
         }
         Spacer(modifier = Modifier.height(40.dp))
-        Button(onClick = { /*TODO*/ },
+        Button(onClick = { context.startActivity(Intent(context, MainActivity::class.java)) },
             colors=ButtonDefaults.buttonColors(
                 backgroundColor = Color(211,26,26)),
             modifier = Modifier

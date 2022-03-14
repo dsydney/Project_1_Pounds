@@ -101,6 +101,11 @@ fun Main() {
         }) {
             Text(text = "Penalties")
         }
+        Button(onClick = {
+            context.startActivity(Intent(context, PaymentOptions::class.java))
+        }) {
+            Text(text = "PaymentOptions")
+        }
 
     }
 
