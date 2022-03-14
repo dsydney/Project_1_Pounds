@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -32,7 +33,16 @@ class Calories: ComponentActivity() {
             var meals by remember { mutableStateOf(mutableListOf<Meal>(
                 Meal("chicken",5,15,0),
                 Meal("bread",20,0,2),
-                Meal("gorp", 50, 50, 50)
+                Meal("gorp", 50, 50, 50),
+                Meal("chicken",5,15,0),
+                Meal("bread",20,0,2),
+                Meal("gorp", 50, 50, 50),
+                Meal("chicken",5,15,0),
+                Meal("bread",20,0,2),
+                Meal("gorp", 50, 50, 50),
+                Meal("chicken",5,15,0),
+                Meal("bread",20,0,2),
+                Meal("gorp", 50, 50, 50),
             )) }
             Project1PoundsTheme {
                 Column(
@@ -49,7 +59,10 @@ class Calories: ComponentActivity() {
                     CalorieProgress(meals.sumOf { it.calories }.toFloat() / 2000.0f)
                     // List of today's food items
                     SavedFoodItems(meals)
-                    Row(verticalAlignment = Alignment.Bottom) {
+                    Row(
+                        verticalAlignment = Alignment.Bottom,
+                        modifier = Modifier.fillMaxWidth().weight(1.0f)
+                    ) {
                         BottomTaskBar()
                     }
                 }
@@ -121,14 +134,16 @@ fun progressColor(progress: Float): Color {
 
 @Composable
 fun SavedFoodItems(meals: MutableList<Meal>) {
-//    Column {
+    Column(modifier = Modifier.padding(8.dp)) {
 //        Text("Today's food:", style = MaterialTheme.typography.h3)
-    LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
+    LazyColumn(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         items(meals) { meal ->
             FoodCard(meal)
         }
     }
-//    }
+    }
 }
 
 @Composable
@@ -139,7 +154,7 @@ fun FoodCard(meal: Meal) {
         elevation = 4.dp,
         modifier = Modifier
             .fillMaxWidth(0.9f)
-//            .padding(4.dp)
+            .padding(2.dp)
     ) {
         Column {
             Text(
@@ -153,26 +168,46 @@ fun FoodCard(meal: Meal) {
                 .fillMaxWidth()
                 .padding(4.dp)
             ) {
+                val textStyleSubtitle2 = MaterialTheme.typography.subtitle2
+                var textStyle by remember { mutableStateOf(textStyleSubtitle2) }
+                var readyToDraw by remember { mutableStateOf(false) }
+
                 Spacer(modifier = Modifier.padding(horizontal = 8.dp))
                 Text(
-                    text = meal.calories.toString() + " Calories",
-//                    style = MaterialTheme.typography.subtitle2
+                    text = "${meal.calories} Calories  " +
+                            "${meal.carbohydrates}g Carbs  " +
+                            "${meal.protein}g Protein  " +
+                            "${meal.fat}g Fat",
+                    style = textStyle,
+                    softWrap = false,
+                    maxLines = 1,
+                    modifier = Modifier.drawWithContent { if(readyToDraw) drawContent() },
+                    onTextLayout = { textLayoutResult ->
+                        if(textLayoutResult.didOverflowWidth) {
+                            textStyle = textStyle.copy(fontSize = textStyle.fontSize * 0.9)
+                        } else {
+                            readyToDraw = true
+                        }
+                    }
                 )
-                Spacer(modifier = Modifier.padding(horizontal = 4.dp))
-                Text(
-                    text = meal.carbohydrates.toString() + "g Carbs",
-//                    style = MaterialTheme.typography.subtitle2
-                )
-                Spacer(modifier = Modifier.padding(horizontal = 4.dp))
-                Text(
-                    text = meal.protein.toString() + "g Protein",
-//                    style = MaterialTheme.typography.subtitle2
-                )
-                Spacer(modifier = Modifier.padding(horizontal = 4.dp))
-                Text(
-                    text = meal.fat.toString() + "g Fat",
-//                    style = MaterialTheme.typography.subtitle2
-                )
+//                Spacer(modifier = Modifier.padding(horizontal = 4.dp))
+//                Text(
+//                    text = meal.carbohydrates.toString() + "g Carbs",
+//                    color = MaterialTheme.colors.onSurface,
+////                    style = MaterialTheme.typography.subtitle2
+//                )
+//                Spacer(modifier = Modifier.padding(horizontal = 4.dp))
+//                Text(
+//                    text = meal.protein.toString() + "g Protein",
+//                    color = MaterialTheme.colors.onSurface,
+////                    style = MaterialTheme.typography.subtitle2
+//                )
+//                Spacer(modifier = Modifier.padding(horizontal = 4.dp))
+//                Text(
+//                    text = meal.fat.toString() + "g Fat",
+//                    color = MaterialTheme.colors.onSurface,
+////                    style = MaterialTheme.typography.subtitle2
+//                )
             }
         }
     }
