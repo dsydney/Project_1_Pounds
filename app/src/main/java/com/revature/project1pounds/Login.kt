@@ -1,5 +1,6 @@
 package com.revature.project1pounds
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -157,9 +158,10 @@ fun SignInButton() {
     Button(
         onClick = {
             Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG).show()
+            context.startActivity(Intent(context, Progress::class.java))
         },
         modifier = Modifier
-            .absolutePadding(top = 35.dp, left = 8.dp, right = 8.dp, bottom = 8.dp)
+            .absolutePadding(top = 30.dp, left = 8.dp, right = 8.dp, bottom = 8.dp)
             .fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color(0xff586ae0)
