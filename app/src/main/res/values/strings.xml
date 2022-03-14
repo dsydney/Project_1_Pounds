@@ -6,4 +6,6 @@
     <string name="title_activity_calories">Calories</string>
     <string name="title_activity_promotions">Promotions</string>
     <string name="title_activity_payment_opt">PaymentOpt</string>
+    <string name="title_activity_credit_card_opt">CreditCardOpt</string>
+    <string name="title_activity_payment_options">PaymentOptions</string>
 </resources>
