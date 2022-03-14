@@ -29,10 +29,11 @@ import androidx.compose.ui.unit.sp
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
 class PaymentOptions : ComponentActivity() {
+    @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
+            paymentScreen()
         }
     }
 }
