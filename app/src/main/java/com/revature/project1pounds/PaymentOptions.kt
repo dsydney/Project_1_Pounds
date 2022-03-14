@@ -62,7 +62,7 @@ fun paymentScreen()
             Text("Link Bank Account",color = Color.White)
         }
         Spacer(modifier = Modifier.height(30.dp))
-        Button(onClick = { /*TODO*/ },
+        Button(onClick = { context.startActivity(Intent(context,CreditCardOpt::class.java))},
             colors= ButtonDefaults.buttonColors(
                 backgroundColor = Color(211,26,26)
             ),
@@ -75,7 +75,7 @@ fun paymentScreen()
             Text("Enter Credit Card Information",color = Color.White)
         }
         Spacer(modifier = Modifier.height(30.dp))
-        Surface(onClick = {context.startActivity(Intent(context,CreditCardOpt::class.java))  },
+        Surface(onClick = {  },
             modifier = Modifier
                 .height(50.dp)
                 .width(250.dp)

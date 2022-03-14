@@ -58,9 +58,5 @@ fun promotionsScreen()
 @Composable
 fun addCard()
 {
-    Image(painter = painterResource(id=R.drawable.gpay))
-}
-data class addImages(image )
-{
-
+    //Image(painter = painterResource(id=R.drawable.gpay))
 }
