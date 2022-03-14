@@ -142,8 +142,10 @@ fun banknameField(entry:String)
         )
     }
 }
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-bankAccountInfo()
+    bankAccountInfo()
 }
+
+ */
