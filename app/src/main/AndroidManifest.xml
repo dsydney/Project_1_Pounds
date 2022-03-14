@@ -12,19 +12,11 @@
         <activity
             android:name=".PaymentOptions"
             android:exported="false"
-            android:label="@string/title_activity_payment_options"
-            android:theme="@style/Theme.Project1Pounds" />
-
-        <activity
-            android:name=".CreditCardOpt"
-            android:exported="false"
-            android:label="@string/title_activity_credit_card_opt"
-            android:theme="@style/Theme.Project1Pounds" />
 
         <activity
             android:name=".Splash"
             android:exported="true"
-            android:label="@string/title_activity_splash"
+            android:label="Splash"
             android:theme="@style/Theme.Project1Pounds">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,7 +27,7 @@
         <activity
             android:name=".Login"
             android:exported="true"
-            android:label="@string/title_activity_login"
+            android:label="Login"
             android:theme="@style/Theme.Project1Pounds">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
