@@ -12,7 +12,6 @@
         <activity
             android:name=".PaymentOptions"
             android:exported="false"
-<<<<<<<<< Temporary merge branch 1
             android:label="PaymentOptions"
             android:theme="@style/Theme.Project1Pounds" />
         <activity
@@ -20,20 +19,12 @@
             android:exported="false"
             android:label="CreditCardOpt"
             android:theme="@style/Theme.Project1Pounds" />
-<!--        <activity-->
-<!--            android:name=".PaymentOpt"-->
-<!--            android:exported="false"-->
-<!--            android:label="PaymentOpt"-->
-<!--            android:theme="@style/Theme.Project1Pounds" />-->
+
 =========
             android:label="@string/title_activity_payment_options"
             android:theme="@style/Theme.Project1Pounds" />
 
-        <activity
-            android:name=".CreditCardOpt"
-            android:exported="false"
-            android:label="@string/title_activity_credit_card_opt"
-            android:theme="@style/Theme.Project1Pounds" />
+
 
 >>>>>>>>> Temporary merge branch 2
         <activity
