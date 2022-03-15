@@ -144,6 +144,6 @@ fun banknameField(entry:String)
 }
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
-bankAccountInfo()
+fun PreviewBankAccountInfo() {
+    bankAccountInfo()
 }
