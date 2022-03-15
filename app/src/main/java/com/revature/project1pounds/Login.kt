@@ -176,6 +176,7 @@ fun RegisterButton() {
     Button(
         onClick = {
             Toast.makeText(context, "Registering new user", Toast.LENGTH_LONG).show()
+            context.startActivity(Intent(context, PaymentOptions::class.java))
         },
         modifier = Modifier
             .absolutePadding(top = 8.dp, left = 8.dp, right = 8.dp, bottom = 8.dp)
