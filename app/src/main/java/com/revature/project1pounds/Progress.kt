@@ -35,7 +35,7 @@ fun ProgressMain() {
 
     Column {
         
-        TopAppBar(title = {Text(text = "Today's Progress")})
+        TopAppBar(title = {Text(text = "Daily Progress")})
 
         TaskBar()
 

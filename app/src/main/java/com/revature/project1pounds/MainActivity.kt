@@ -32,6 +32,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Preview
+@Composable
+fun Preview() {
+    TaskBar()
+}
+
 @Composable
 fun TaskBar() {
 
@@ -100,6 +106,54 @@ fun Main() {
             context.startActivity(Intent(context, Penalties::class.java))
         }) {
             Text(text = "Penalties")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, PaymentOptions::class.java))
+        }) {
+            Text(text = "PaymentOptions")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, Promotions::class.java))
+        }) {
+            Text(text = "Promotions")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, Macros::class.java))
+        }) {
+            Text(text = "Macros")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, BankAccountOpt::class.java))
+        }) {
+            Text(text = "Bank account info")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, CreditCardOpt::class.java))
+        }) {
+            Text(text = "Credit Card info")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, Calories::class.java))
+        }) {
+            Text(text = "Calories")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, Login::class.java))
+        }) {
+            Text(text = "Login")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, Meal::class.java))
+        }) {
+            Text(text = "Meal")
         }
 
     }
