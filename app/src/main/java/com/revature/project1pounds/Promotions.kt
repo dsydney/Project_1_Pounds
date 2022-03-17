@@ -41,7 +41,7 @@ class Promotions : ComponentActivity() {
 @Composable
 fun promotionsScreen() {
 
-Column {
+Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
 
     TaskBar()
 
