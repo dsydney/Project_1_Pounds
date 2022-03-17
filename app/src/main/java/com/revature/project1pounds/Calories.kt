@@ -52,7 +52,7 @@ class Calories: ComponentActivity() {
                     TopAppBar {
                         Text("Calories")
                     }
-                    TaskBar()
+                    //TaskBar()
                     // Search for food items
                     FoodSearch()
                     // Progress bar of daily Calorie limit
@@ -69,6 +69,48 @@ class Calories: ComponentActivity() {
             }
         }
     }
+}
+
+@Composable
+fun CaloriesMain() {
+
+    var meals by remember { mutableStateOf(mutableListOf<Meal>(
+        Meal("chicken",5,15,0),
+        Meal("bread",20,0,2),
+        Meal("gorp", 50, 50, 50),
+        Meal("chicken",5,15,0),
+        Meal("bread",20,0,2),
+        Meal("gorp", 50, 50, 50),
+        Meal("chicken",5,15,0),
+        Meal("bread",20,0,2),
+        Meal("gorp", 50, 50, 50),
+        Meal("chicken",5,15,0),
+        Meal("bread",20,0,2),
+        Meal("gorp", 50, 50, 50),
+    )) }
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        TopAppBar {
+            Text("Calories")
+        }
+        //TaskBar()
+        // Search for food items
+        FoodSearch()
+        // Progress bar of daily Calorie limit
+        CalorieProgress(meals.sumOf { it.calories }.toFloat() / 2000.0f)
+        // List of today's food items
+        SavedFoodItems(meals)
+//                    Row(
+//                        verticalAlignment = Alignment.Bottom,
+//                        modifier = Modifier.fillMaxWidth().weight(1.0f)
+//                    ) {
+//                        BottomTaskBar()
+//                    }
+    }
+
 }
 
 @Composable
@@ -218,6 +260,7 @@ fun FoodCard(meal: Meal) {
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun BottomTaskBar() {
     val context = LocalContext.current
