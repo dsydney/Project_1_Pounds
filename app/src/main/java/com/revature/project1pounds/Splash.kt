@@ -47,7 +47,7 @@ fun StartupSplash() {
                 .fillMaxSize()
                 .clickable(
                     onClick = {
-                        context.startActivity(Intent(context, MainActivity::class.java))
+                        context.startActivity(Intent(context, Login::class.java))
                     }
                 )
                 .background(Color(220,26,34)))

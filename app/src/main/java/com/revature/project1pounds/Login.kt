@@ -141,7 +141,7 @@ fun Password() {
                 IconButton(onClick = { showPassword.value = true }) {
                     Icon(
                         imageVector = Icons.Filled.VisibilityOff,
-                        contentDescription = "Hide Password"
+                        contentDescription = "Show Password"
                     )
                 }
             }
@@ -154,7 +154,7 @@ fun Password() {
 @Composable
 fun SignInButton() {
     val context = LocalContext.current
-    val focusManager = LocalFocusManager.current
+    //val focusManager = LocalFocusManager.current
     Button(
         onClick = {
             Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG).show()
