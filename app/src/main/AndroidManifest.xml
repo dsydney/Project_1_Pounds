@@ -15,19 +15,9 @@
             android:label="@string/title_activity_payment_options"
             android:theme="@style/Theme.Project1Pounds" />
         <activity
-            android:name=".ui.theme.PaymentOptions"
-            android:exported="false"
-            android:label="@string/title_activity_payment_options"
-            android:theme="@style/Theme.Project1Pounds" />
-        <activity
             android:name=".CreditCardOpt"
             android:exported="false"
             android:label="@string/title_activity_credit_card_opt"
-            android:theme="@style/Theme.Project1Pounds" />
-        <activity
-            android:name=".PaymentOpt"
-            android:exported="false"
-            android:label="@string/title_activity_payment_opt"
             android:theme="@style/Theme.Project1Pounds" />
         <activity
             android:name=".Splash"
@@ -45,11 +35,6 @@
             android:exported="true"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.Project1Pounds">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Promotions"

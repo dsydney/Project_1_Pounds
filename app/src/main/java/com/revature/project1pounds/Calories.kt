@@ -1,6 +1,8 @@
 package com.revature.project1pounds
 
 import android.content.Intent
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,7 +19,10 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -45,27 +50,30 @@ class Calories: ComponentActivity() {
                 Meal("gorp", 50, 50, 50),
             )) }
             Project1PoundsTheme {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    TopAppBar {
-                        Text("Calories")
+                Scaffold(
+                    topBar = {
+                        TopAppBar {
+                            Text(
+                                text ="Calories",
+                            )
+                        }
+                    },
+                    bottomBar = {
+                        TaskBar()
+                    },
+                    content = {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            FoodSearch()
+                            CalorieProgress(
+                                meals.sumOf { it.calories }.toFloat() / 2000.0f
+                            )
+                            SavedFoodItems(meals)
+                        }
                     }
-                    TaskBar()
-                    // Search for food items
-                    FoodSearch()
-                    // Progress bar of daily Calorie limit
-                    CalorieProgress(meals.sumOf { it.calories }.toFloat() / 2000.0f)
-                    // List of today's food items
-                    SavedFoodItems(meals)
-//                    Row(
-//                        verticalAlignment = Alignment.Bottom,
-//                        modifier = Modifier.fillMaxWidth().weight(1.0f)
-//                    ) {
-//                        BottomTaskBar()
-//                    }
-                }
+                )
             }
         }
     }
@@ -74,7 +82,8 @@ class Calories: ComponentActivity() {
 @Composable
 fun FoodSearch() {
     // reference: https://proandroiddev.com/jetpack-compose-auto-complete-search-bar-853023856f0f
-    var value = ""
+    // https://stackoverflow.com/questions/58840019/jetpack-compose-ui-how-to-create-searchview
+    var (value, onValueChange) = remember { mutableStateOf("") }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -85,13 +94,15 @@ fun FoodSearch() {
             modifier = Modifier
                 .fillMaxWidth(.9f),
             value = value,
-            onValueChange = { value = it },
+            onValueChange = onValueChange,
             label = { Text("What are you eating?") },
             placeholder = { Text("chicken") },
-            textStyle = MaterialTheme.typography.subtitle1,
+//            textStyle = MaterialTheme.typography.subtitle1,
             singleLine = true,
             leadingIcon = { Icon(Icons.Filled.Search, "") },
-            trailingIcon = { IconButton(onClick = { /* Add item to meals */ } ) { (Icons.Filled.Add) } },
+            trailingIcon = {
+                IconButton(onClick = { /* Add item to meals */ }) { Icons.Filled.Add }
+            },
             // keyboard actions?
         )
     }
@@ -110,7 +121,8 @@ fun CalorieProgress(progress: Float = 0.0f) {
             progress = if (progress > 1.0f) 1.0f else progress,
             modifier = Modifier
                 .height(8.dp)
-                .fillMaxWidth(0.85f),
+                .fillMaxWidth(0.85f)
+                .clip(shape = MaterialTheme.shapes.medium),
             color = progressColor(progress),
             backgroundColor = MaterialTheme.colors.onBackground
         )
@@ -121,13 +133,13 @@ fun CalorieProgress(progress: Float = 0.0f) {
 fun progressColor(progress: Float): Color {
     return when {
         progress > 1.0f -> {
-            MaterialTheme.colors.error
+            Color.Red
         }
         progress > 0.6f -> {
-            MaterialTheme.colors.primaryVariant
+            Color.Yellow
         }
         else -> {
-            MaterialTheme.colors.secondaryVariant
+            Color.Cyan
         }
     }
 }
@@ -195,24 +207,6 @@ fun FoodCard(meal: Meal) {
                         }
                     }
                 )
-//                Spacer(modifier = Modifier.padding(horizontal = 4.dp))
-//                Text(
-//                    text = meal.carbohydrates.toString() + "g Carbs",
-//                    color = MaterialTheme.colors.onSurface,
-////                    style = MaterialTheme.typography.subtitle2
-//                )
-//                Spacer(modifier = Modifier.padding(horizontal = 4.dp))
-//                Text(
-//                    text = meal.protein.toString() + "g Protein",
-//                    color = MaterialTheme.colors.onSurface,
-////                    style = MaterialTheme.typography.subtitle2
-//                )
-//                Spacer(modifier = Modifier.padding(horizontal = 4.dp))
-//                Text(
-//                    text = meal.fat.toString() + "g Fat",
-//                    color = MaterialTheme.colors.onSurface,
-////                    style = MaterialTheme.typography.subtitle2
-//                )
             }
         }
     }
@@ -277,7 +271,11 @@ fun PreviewFoodSearch() {
 @Composable
 fun PreviewCalorieProgress() {
     Project1PoundsTheme {
-        CalorieProgress(0.75f)
+        Column {
+            CalorieProgress(1.5f)
+            CalorieProgress(0.75f)
+            CalorieProgress(0.4f)
+        }
     }
 }
 
@@ -293,7 +291,14 @@ fun PreviewSavedFoodItems() {
     }
 }
 
-@Preview
+@Preview(
+    uiMode = UI_MODE_NIGHT_NO,
+    name = "Light mode"
+)
+@Preview(
+    uiMode = UI_MODE_NIGHT_YES,
+    name = "Dark mode"
+)
 @Composable
 fun PreviewFoodCard() {
     Project1PoundsTheme {
