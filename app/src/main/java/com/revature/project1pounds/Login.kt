@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -51,7 +52,7 @@ class Login : ComponentActivity() {
 fun LoginScreen() {
 
     Column(modifier = Modifier
-        .fillMaxWidth()
+        .fillMaxSize()
         .background(Color(0xffebeadd))
         .padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Welcome()
@@ -59,16 +60,7 @@ fun LoginScreen() {
         Password()
         SignInButton()
         RegisterButton()
-//            Row {
-//                Logo()
-//            }
-
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0xffebeadd)))
     }
-
 }
 
 
@@ -108,7 +100,7 @@ fun Email() {
 
 @Composable
 fun Password() {
-    val passwordState = remember{ mutableStateOf(TextFieldValue())}
+    val passwordState = remember { mutableStateOf(TextFieldValue())}
     val showPassword = remember { mutableStateOf(false)}
     val focusManager = LocalFocusManager.current
     TextField(
@@ -175,7 +167,6 @@ fun RegisterButton() {
     val context = LocalContext.current
     Button(
         onClick = {
-            Toast.makeText(context, "Registering new user", Toast.LENGTH_LONG).show()
             context.startActivity(Intent(context, PaymentOptions::class.java))
         },
         modifier = Modifier
@@ -188,18 +179,6 @@ fun RegisterButton() {
     }
 }
 
-//@Composable
-//fun Logo() {
-//    Box(modifier = Modifier.fillMaxWidth()) {
-//        Image(
-//            painter = painterResource(R.drawable.pounds), contentDescription = "Logo",
-//            modifier = Modifier
-//                .clip(CircleShape)   //adjust img size and made a circle
-//                .padding(16.dp)
-//        )
-//    }
-//
-//}
 
 
 @Preview

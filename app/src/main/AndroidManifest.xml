@@ -20,13 +20,6 @@
             android:label="CreditCardOpt"
             android:theme="@style/Theme.Project1Pounds" />
 
-=========
-            android:label="@string/title_activity_payment_options"
-            android:theme="@style/Theme.Project1Pounds" />
-
-
-
->>>>>>>>> Temporary merge branch 2
         <activity
             android:name=".Splash"
             android:exported="true"
