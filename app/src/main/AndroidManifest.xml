@@ -12,7 +12,7 @@
         <activity
             android:name=".PaymentOptions"
             android:exported="false"
-            android:label="PaymentOptions"
+
             android:theme="@style/Theme.Project1Pounds" />
         <activity
             android:name=".CreditCardOpt"
@@ -20,13 +20,6 @@
             android:label="CreditCardOpt"
             android:theme="@style/Theme.Project1Pounds" />
 
-=========
-            android:label="@string/title_activity_payment_options"
-            android:theme="@style/Theme.Project1Pounds" />
-
-
-
->>>>>>>>> Temporary merge branch 2
         <activity
             android:name=".Splash"
             android:exported="true"
@@ -43,11 +36,6 @@
             android:exported="true"
             android:label="Login"
             android:theme="@style/Theme.Project1Pounds">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Promotions"
