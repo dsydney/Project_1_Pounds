@@ -38,6 +38,7 @@ import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
 
 
+@ExperimentalMaterialApi
 class Login : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +49,7 @@ class Login : ComponentActivity() {
 }
 
 
+@ExperimentalMaterialApi
 @Composable
 fun LoginScreen() {
 
@@ -142,6 +144,7 @@ fun Password() {
 }
 
 
+@ExperimentalMaterialApi
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SignInButton() {
@@ -150,7 +153,7 @@ fun SignInButton() {
     Button(
         onClick = {
             Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG).show()
-            context.startActivity(Intent(context, Progress::class.java))
+            context.startActivity(Intent(context, MainActivity::class.java))
         },
         modifier = Modifier
             .absolutePadding(top = 30.dp, left = 8.dp, right = 8.dp, bottom = 8.dp)
@@ -181,6 +184,7 @@ fun RegisterButton() {
 
 
 
+@ExperimentalMaterialApi
 @Preview
 @Composable
 fun testLogin() {

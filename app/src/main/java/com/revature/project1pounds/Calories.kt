@@ -73,7 +73,7 @@ class Calories: ComponentActivity() {
                             SavedFoodItems(meals)
                         }
                     }
-
+                )
             }
         }
     }
