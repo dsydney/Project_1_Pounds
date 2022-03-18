@@ -202,7 +202,7 @@ fun RegisterButton() {
     val context = LocalContext.current
     Button(
         onClick = {
-            context.startActivity(Intent(context, PaymentOptions::class.java))
+            context.startActivity(Intent(context, Registration::class.java))
         },
         modifier = Modifier
             .absolutePadding(top = 4.dp, left = 8.dp, right = 8.dp, bottom = 8.dp)

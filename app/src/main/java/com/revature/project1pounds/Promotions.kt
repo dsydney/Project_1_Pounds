@@ -43,7 +43,7 @@ fun promotionsScreen() {
 
 Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
 
-    TaskBar()
+
 
     LazyColumn(horizontalAlignment = Alignment.CenterHorizontally)
     {
