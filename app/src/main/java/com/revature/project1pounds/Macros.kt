@@ -169,7 +169,7 @@ fun HealthyHints() {
                     Row() {
 
                         Image(
-                            painter = painterResource(R.drawable.lightbulbicon),
+                            painter = painterResource(R.drawable.lightbulbicon_ccexpress),
                             contentDescription = null,
                             modifier = Modifier
                                 .size(50.dp)
