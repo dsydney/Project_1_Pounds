@@ -158,7 +158,7 @@ fun EmailPassword() {
                 Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG).show()
                 //Need to go to MainActivity so that the bottom nav bar is present, otherwise, you get
                 // stuck on Progress with no way to navigate.
-                context.startActivity(Intent(context, MainActivity(accountList.getValue(email))::class.java))
+                context.startActivity(Intent(context, MainActivity(accountList.getValue(email.value))::class.java))
             } else {
                 message.value = "Invalid username/password"
             }
