@@ -10,4 +10,5 @@
     <string name="title_activity_payment_opt" />
     <string name="title_activity_splash" />
     <string name="title_activity_login" />
+    <string name="title_activity_input_meal">InputMeal</string>
 </resources>
