@@ -56,9 +56,7 @@ fun CaloriesMain() {
     Project1PoundsTheme {
         Scaffold(
             topBar = {
-                TopAppBar {
-                    Text(text ="Calories")
-                }
+                TopAppBar( title = { Text("Calories") })
             },
             bottomBar = {
                 TaskBar()
