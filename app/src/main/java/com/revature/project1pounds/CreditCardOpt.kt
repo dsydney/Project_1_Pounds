@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
+@ExperimentalMaterialApi
 class CreditCardOpt : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,7 @@ class CreditCardOpt : ComponentActivity() {
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun cardInfo()
 {
@@ -146,6 +148,7 @@ fun cardField(entry:String)
         )
     }
 }
+@ExperimentalMaterialApi
 @Preview(showBackground = true)
 @Composable
 fun cardPreview() {

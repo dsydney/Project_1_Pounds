@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
+@ExperimentalMaterialApi
 class BankAccountOpt : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,7 @@ class BankAccountOpt : ComponentActivity() {
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun bankAccountInfo()
 {

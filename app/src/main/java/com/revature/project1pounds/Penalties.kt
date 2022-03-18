@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
 class Penalties : ComponentActivity() {
+    @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -35,12 +36,14 @@ class Penalties : ComponentActivity() {
     }
 }
 
+@ExperimentalMaterialApi
 @Preview
 @Composable
 fun PenaltiesPreview() {
     PenaltiesMain()
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun PenaltiesMain() {
 
@@ -50,7 +53,7 @@ fun PenaltiesMain() {
 
         TopAppBar(title = { Text(text = "Penalties")})
 
-        TaskBar()
+        //TaskBar()
 
         Card(modifier = Modifier
             .fillMaxWidth()
