@@ -10,46 +10,42 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
 class Calories: ComponentActivity() {
+    companion object {
+        var meals by mutableStateOf(
+            mutableStateListOf<Meal>(
+                Meal("chicken",5,15,0),
+                Meal("bread",20,0,2),
+                Meal("gorp", 50, 50, 50),
+            )
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            var meals by remember {
-                mutableStateOf(
-                    mutableListOf<Meal>(
-                        Meal("chicken",5,15,0),
-                        Meal("bread",20,0,2),
-                        Meal("gorp", 50, 50, 50),
-                        Meal("chicken",5,15,0),
-                        Meal("bread",20,0,2),
-                        Meal("gorp", 50, 50, 50),
-                        Meal("chicken",5,15,0),
-                        Meal("bread",20,0,2),
-                        Meal("gorp", 50, 50, 50),
-                        Meal("chicken",5,15,0),
-                        Meal("bread",20,0,2),
-                        Meal("gorp", 50, 50, 50),
-                    )
-                )
-            }
             Project1PoundsTheme {
                 Scaffold(
                     topBar = {
@@ -78,18 +74,6 @@ class Calories: ComponentActivity() {
     }
 }
 
-/*
-  Instead of looking up options, just make a composable that lets user input name and macros
-  then add that new object to list
-
-  Button to input food item
-  Calorie progress bar
-  Meal list
-
-  Input Food
-  String Name
-  Int Carb, Protein, Fat
- */
 @Composable
 fun CaloriesMain() {
 
@@ -134,27 +118,89 @@ fun CaloriesMain() {
 
 @Composable
 fun FoodSearch() {
-    var (value, onValueChange) = remember { mutableStateOf("") }
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.Center,
-    ) {
-        OutlinedTextField(
+    var name by rememberSaveable { mutableStateOf("") }
+    var carb by rememberSaveable { mutableStateOf("") }
+    var protein by rememberSaveable { mutableStateOf("") }
+    var fat by rememberSaveable { mutableStateOf("") }
+
+    val changeName: (String) -> Unit = { it -> name = it }
+    val changeCarb: (String) -> Unit = { it -> carb = it }
+    val changeProtein: (String) -> Unit = { it -> protein = it }
+    val changeFat: (String) -> Unit = { it -> fat = it }
+
+    Column {
+        Row(
             modifier = Modifier
-                .fillMaxWidth(.9f),
-            value = value,
-            onValueChange = onValueChange,
-            label = { Text("What are you eating?") },
-            placeholder = { Text("chicken") },
-//            textStyle = MaterialTheme.typography.subtitle1,
-            singleLine = true,
-            leadingIcon = { Icon(Icons.Filled.Search, "") },
-            trailingIcon = {
-                IconButton(onClick = { /* Add item to meals */ }) { Icons.Filled.Add }
-            },
-        )
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth(.9f),
+                value = name,
+                onValueChange = changeName,
+                label = { Text("What are you eating?") },
+                placeholder = { Text("chicken") },
+                singleLine = true,
+                leadingIcon = { Icon(Icons.Filled.Search, "") },
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(4.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            TextField(
+                value = carb,
+                onValueChange = changeCarb,
+                modifier = Modifier
+                    .requiredWidth(LocalConfiguration.current.screenWidthDp.dp / 4f)
+                    .padding(horizontal = 2.dp),
+                label = { Text("Carbs") },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                ),
+            )
+            TextField(
+                value = protein,
+                onValueChange = changeProtein,
+                modifier = Modifier
+                    .requiredWidth(LocalConfiguration.current.screenWidthDp.dp / 4f)
+                    .padding(horizontal = 2.dp),
+                label = { Text("Protein") },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                ),
+            )
+            TextField(
+                value = fat,
+                onValueChange = changeFat,
+                modifier = Modifier
+                    .requiredWidth(LocalConfiguration.current.screenWidthDp.dp / 4f)
+                    .padding(horizontal = 2.dp),
+                label = { Text("Fat") },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                ),
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(4.dp),
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            Button(
+                onClick = {
+                    Calories.meals.add(Meal(name,carb.toInt(),protein.toInt(),fat.toInt()))
+                }
+            ) {
+                Text("Add to meals")
+            }
+        }
     }
 }
 
@@ -205,7 +251,7 @@ fun SavedFoodItems(meals: MutableList<Meal>) {
         )
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
-//            contentPadding = PaddingValues(32.dp)
+            contentPadding = PaddingValues(bottom = 46.dp)
         ) {
             items(meals) { meal ->
                 FoodCard(meal)
@@ -229,7 +275,6 @@ fun FoodCard(meal: Meal) {
                 meal.name,
                 modifier = Modifier.padding(8.dp),
                 style = MaterialTheme.typography.body1,
-//                fontSize = 24.sp,
                 textAlign = TextAlign.Left
             )
             Row(modifier = Modifier
