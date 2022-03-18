@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -233,9 +234,9 @@ fun FoodCard(meal: Meal) {
     ) {
         Column {
             Text(
-                meal.name,
+                text = meal.name.uppercase(),
                 modifier = Modifier.padding(8.dp),
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.h6,
                 textAlign = TextAlign.Left
             )
             Row(modifier = Modifier
@@ -248,7 +249,7 @@ fun FoodCard(meal: Meal) {
 
                 Spacer(modifier = Modifier.padding(horizontal = 8.dp))
                 Text(
-                    text = "${meal.calories} Calories  " +
+                    text =  "${meal.calories} Calories  " +
                             "${meal.carbohydrates}g Carbs  " +
                             "${meal.protein}g Protein  " +
                             "${meal.fat}g Fat",
