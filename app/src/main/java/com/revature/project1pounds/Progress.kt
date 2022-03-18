@@ -4,15 +4,19 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
 class Progress : ComponentActivity() {
@@ -28,6 +32,7 @@ class Progress : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ProgressMain() {
 
@@ -37,27 +42,42 @@ fun ProgressMain() {
         
         TopAppBar(title = {Text(text = "Daily Progress")})
 
-        TaskBar()
+        //TaskBar()
 
-        Text(text = "Calories: 2100")
+        Card(modifier = Modifier
+            .fillMaxWidth()
+            .border(3.dp, Color.Black)
+            .padding(10.dp)
+        ) {
 
-        Text(text = "Macros\nProtein: 5g   44%\nCarbohydrates: 76g   38%\nFat: 17g   18%")
+            Column {
 
-        Text(text = "Steps: 5283")
+                Text(text = "Calories: 2100")
 
-    }
+                Text(text = "Macros\nProtein: 5g   44%\nCarbohydrates: 76g   38%\nFat: 17g   18%")
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Bottom,
-        horizontalAlignment = Alignment.End
-    ) {
+                Text(text = "Steps: 5283")
 
-        Button(onClick = {
-            context.startActivity(Intent(context, MainActivity::class.java))
-        }) {
-            Text(text = "Home")
+                //Insert image of a graph here
+                val painter = painterResource(id = R.drawable.macrospiechart)
+                val description = "Bar Chart"
+                Box (modifier = Modifier
+                    .fillMaxWidth()
+                ) {
+
+                    Image(
+                        painter = painter,
+                        contentDescription = description,
+                        contentScale = ContentScale.FillWidth
+                    )
+
+                }
+
+            }
+
         }
+
+        //BottomNavBar()
 
     }
     

@@ -4,8 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -15,15 +14,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import kotlin.math.roundToInt
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 import androidx.compose.runtime.saveable.rememberSaveable as rememberSavable
-import kotlin.math.roundToLong
-import androidx.compose.runtime.saveable.rememberSaveable as rememberSaveable1
 
 class Macros : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,9 +41,7 @@ fun MacroScreen() {
             ) {
             Sliders()
             HealthyHints()
-
         }
-
     }
     Row(modifier = Modifier
         .fillMaxSize()
@@ -67,15 +60,15 @@ fun TopBar() {
 
 
 fun CalorieLimit(protein:Float, fats:Float, carbs:Float) : Int {
-    return  protein.toInt()*4+fats.toInt()*9+carbs.toInt()*4
+    return  ((protein.toInt()*4)+(fats.toInt()*9)+(carbs.toInt()*4))
 }
 
 
 @Composable
 fun Sliders() {
-    var proteinSliderValue by rememberSavable { mutableStateOf(1f) }
-    var carbsSliderValue by rememberSavable { mutableStateOf(1f) }
-    var fatsSliderValue by rememberSavable { mutableStateOf(1f) }
+    var proteinSliderValue by rememberSavable { mutableStateOf(0f) }
+    var carbsSliderValue by rememberSavable { mutableStateOf(0f) }
+    var fatsSliderValue by rememberSavable { mutableStateOf(0f) }
 
     Column(modifier = Modifier.padding(top = 8.dp)) {
         Row() {
@@ -149,78 +142,57 @@ fun HealthyHints() {
     var hints = listOf(
         "Healthy eating is a way of life, so it's important to establish routines that are simple and realistic",
         "Whole grains are a very important part of a healthy, balanced diet",
-        "Nothing spells health like H-2-O"
+        "Nothing spells health like H-2-O! Drinking water significantly effects energy levels and brain function"
     )
     Card(
         modifier = Modifier
-            .padding(10.dp)
+            .absolutePadding(top = 16.dp, bottom = 10.dp, left = 10.dp, right = 10.dp)
             .fillMaxWidth()
             .wrapContentHeight(),
         shape = MaterialTheme.shapes.medium,
         elevation = 5.dp,
         backgroundColor = MaterialTheme.colors.surface
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(text = "Healthy hints:",
-                style=MaterialTheme.typography.h5,
-                modifier = Modifier.padding(start = 16.dp, top = 10.dp))
-        }
 
-        Spacer(modifier = Modifier.height(10.dp))
-        Row(
+
+        //style=MaterialTheme.typography.h5
+        for (i in hints) {
+        Row(modifier = Modifier.absolutePadding(top = 16.dp, bottom = 16.dp, left = 8.dp, right = 16.dp),
             verticalAlignment = Alignment.CenterVertically
 
         ) {
 
-            Image(
-                painter = painterResource(R.drawable.lightbulbicon),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(30.dp)
-                    .padding(8.dp),
-                contentScale = ContentScale.Fit
-            )
-            Column(Modifier.padding(8.dp)) {
+            Column() {
+
                 for (i in hints) {
-                    Text(
-                        text = i,
-                        style = MaterialTheme.typography.body1,
-                        color = MaterialTheme.colors.onSurface,
-                        modifier = Modifier.padding(bottom = 8.dp)
-                    )
+
+                    Row() {
+
+                        Image(
+                            painter = painterResource(R.drawable.lightbulbicon),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(50.dp)
+                                .padding(8.dp),
+                            contentScale = ContentScale.Fit
+                        )
+                        Text(
+                            text = i,
+                            style = MaterialTheme.typography.body1,
+                            color = MaterialTheme.colors.onSurface,
+                            modifier = Modifier.padding(bottom = 8.dp)
+                        )
+                    }
+
+
                 }
+            }
             }
 
         }
     }
 }
-//    Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-//        Text(text = "Healthy hints:",
-//            style=MaterialTheme.typography.h5,
-//            modifier = Modifier.padding(start = 16.dp, top = 10.dp))
-//        for (i in hints) {
-//        Row(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .wrapContentHeight()
-//                .padding(vertical = 25.dp),
-//            horizontalArrangement = Arrangement.Center,
-//            verticalAlignment = Alignment.CenterVertically
-//        ) {
-//
-//                Text(
-//                    text = i,
-//                    fontFamily = FontFamily.SansSerif,
-//                    modifier = Modifier.padding(4.dp)
-//                        .fillMaxWidth()
-//                        .wrapContentHeight()
-//                )
-//
-//                Spacer(modifier = Modifier.height(8.dp))
-//            }
-//        }
-//
-//    }
+
 
 
 
