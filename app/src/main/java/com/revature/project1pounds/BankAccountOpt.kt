@@ -1,5 +1,6 @@
 package com.revature.project1pounds
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -25,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
+@ExperimentalMaterialApi
 class BankAccountOpt : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +37,12 @@ class BankAccountOpt : ComponentActivity() {
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun bankAccountInfo()
 {
+    val context = LocalContext.current
+
     Column(modifier=Modifier.verticalScroll(rememberScrollState()),horizontalAlignment = Alignment.CenterHorizontally) {
         Image(painter= painterResource(R.drawable.poundswhitebackground),modifier=Modifier.padding(20.dp), contentDescription = "Pounds logo")
         accountComponent(text ="Please enter your account number" )
@@ -59,7 +65,7 @@ fun bankAccountInfo()
                     backgroundColor = Color(211,26,26)),
                 modifier = Modifier
                     .padding(2.dp)
-                    .width(110.dp)
+                    .width(111.dp)
             )
             {
                 Text("Checking",color=Color.White)
@@ -76,7 +82,7 @@ fun bankAccountInfo()
             }
         }
         Spacer(modifier = Modifier.height(40.dp))
-        Button(onClick = { /*TODO*/ },
+        Button(onClick = { context.startActivity(Intent(context, MainActivity::class.java)) },
             colors=ButtonDefaults.buttonColors(
                 backgroundColor = Color(211,26,26)),
             modifier = Modifier
@@ -142,8 +148,4 @@ fun banknameField(entry:String)
         )
     }
 }
-@Preview(showBackground = true)
-@Composable
-fun PreviewBankAccountInfo() {
-    bankAccountInfo()
-}
+

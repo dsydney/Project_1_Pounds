@@ -19,19 +19,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
+@ExperimentalMaterialApi
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             Project1PoundsTheme {
 
-                Main()
+                //Main()
+                BottomNavBar()
 
             }
         }
     }
 }
 
+@Preview
+@Composable
+fun Preview() {
+    TaskBar()
+}
+
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TaskBar() {
 
@@ -81,6 +90,7 @@ fun TaskBar() {
 
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun Main() {
 
@@ -100,6 +110,54 @@ fun Main() {
             context.startActivity(Intent(context, Penalties::class.java))
         }) {
             Text(text = "Penalties")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, PaymentOptions::class.java))
+        }) {
+            Text(text = "PaymentOptions")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, Promotions::class.java))
+        }) {
+            Text(text = "Promotions")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, Macros::class.java))
+        }) {
+            Text(text = "Macros")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, BankAccountOpt::class.java))
+        }) {
+            Text(text = "Bank account info")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, CreditCardOpt::class.java))
+        }) {
+            Text(text = "Credit Card info")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, Calories::class.java))
+        }) {
+            Text(text = "Calories")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, Login::class.java))
+        }) {
+            Text(text = "Login")
+        }
+
+        Button(onClick = {
+            context.startActivity(Intent(context, Meal::class.java))
+        }) {
+            Text(text = "Meal")
         }
 
     }
