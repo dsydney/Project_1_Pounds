@@ -10,5 +10,6 @@
     <string name="title_activity_payment_opt" />
     <string name="title_activity_splash" />
     <string name="title_activity_login" />
+    <string name="title_activity_registration">Registration</string>
 
 </resources>
