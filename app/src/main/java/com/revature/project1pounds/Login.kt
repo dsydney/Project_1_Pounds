@@ -58,13 +58,8 @@ fun LoginScreen() {
         .padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Welcome()
         EmailPassword()
-        //Password()
-//        SignInButton()
-//        RegisterButton()
     }
 }
-
-
 
 @Composable
 fun Welcome() {
@@ -79,7 +74,7 @@ fun Welcome() {
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, androidx.compose.material.ExperimentalMaterialApi::class)
 @Composable
 fun EmailPassword() {
     val password = rememberSaveable() { mutableStateOf("") }
@@ -151,18 +146,17 @@ fun EmailPassword() {
     )
     Column(modifier = Modifier.fillMaxWidth(),
     horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "${message.value}",
-            color = Color.Red)
+        Text(text = "${message.value}", color = Color.Red)
     }
-
-
 
     //login button
     Button(
         onClick = {
             if(loginSuccessful(email.value,password.value)) {
                 Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG).show()
-                context.startActivity(Intent(context, Progress::class.java))
+                //Need to go to MainActivity so that the bottom nav bar is present, otherwise, you get
+                // stuck on Progress with no way to navigate.
+                context.startActivity(Intent(context, MainActivity::class.java))
             } else {
                 message.value = "Invalid username/password"
             }
@@ -208,7 +202,7 @@ fun RegisterButton() {
     val context = LocalContext.current
     Button(
         onClick = {
-            context.startActivity(Intent(context, PaymentOptions::class.java))
+            context.startActivity(Intent(context, Registration::class.java))
         },
         modifier = Modifier
             .absolutePadding(top = 4.dp, left = 8.dp, right = 8.dp, bottom = 8.dp)

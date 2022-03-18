@@ -10,21 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project1Pounds">
         <activity
-            android:name=".InputMeal"
+            android:name=".Registration"
             android:exported="false"
-            android:label="@string/title_activity_input_meal"
+            android:label="@string/title_activity_registration"
             android:theme="@style/Theme.Project1Pounds" />
         <activity
             android:name=".PaymentOptions"
             android:exported="false"
-
             android:theme="@style/Theme.Project1Pounds" />
         <activity
             android:name=".CreditCardOpt"
             android:exported="false"
             android:label="CreditCardOpt"
             android:theme="@style/Theme.Project1Pounds" />
-
+        <activity
+            android:name=".BankAccountOpt"
+            android:exported="false"
+            android:label="@string/title_activity_calories"
+            android:theme="@style/Theme.Project1Pounds" />
         <activity
             android:name=".Splash"
             android:exported="true"
@@ -38,7 +41,7 @@
         </activity>
         <activity
             android:name=".Login"
-            android:exported="true"
+            android:exported="true" />
 
         <activity
             android:name=".Promotions"
@@ -50,6 +53,7 @@
             android:exported="false"
             android:label="@string/title_activity_calories"
             android:theme="@style/Theme.Project1Pounds" />
+
         <activity
             android:name=".Macros"
             android:exported="false"
@@ -68,7 +72,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.Project1Pounds">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
