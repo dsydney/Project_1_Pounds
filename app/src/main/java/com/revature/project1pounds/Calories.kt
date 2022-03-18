@@ -46,74 +46,37 @@ class Calories: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Project1PoundsTheme {
-                Scaffold(
-                    topBar = {
-                        TopAppBar {
-                            Text(text ="Calories")
-                        }
-                    },
-                    bottomBar = {
-                        TaskBar()
-                    },
-                    content = {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier.fillMaxSize()
-                        ) {
-                            FoodSearch()
-                            CalorieProgress(
-                                meals.sumOf { it.calories }.toFloat() / 2000.0f
-                            )
-                            SavedFoodItems(meals)
-                        }
-                    }
-                )
-            }
+            CaloriesMain()
         }
     }
 }
 
 @Composable
 fun CaloriesMain() {
-
-    var meals by remember { mutableStateOf(mutableListOf<Meal>(
-        Meal("chicken",5,15,0),
-        Meal("bread",20,0,2),
-        Meal("gorp", 50, 50, 50),
-        Meal("chicken",5,15,0),
-        Meal("bread",20,0,2),
-        Meal("gorp", 50, 50, 50),
-        Meal("chicken",5,15,0),
-        Meal("bread",20,0,2),
-        Meal("gorp", 50, 50, 50),
-        Meal("chicken",5,15,0),
-        Meal("bread",20,0,2),
-        Meal("gorp", 50, 50, 50),
-    )) }
-
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        TopAppBar {
-            Text("Calories")
-        }
-        //TaskBar()
-        // Search for food items
-        FoodSearch()
-        // Progress bar of daily Calorie limit
-        CalorieProgress(meals.sumOf { it.calories }.toFloat() / 2000.0f)
-        // List of today's food items
-        SavedFoodItems(meals)
-//                    Row(
-//                        verticalAlignment = Alignment.Bottom,
-//                        modifier = Modifier.fillMaxWidth().weight(1.0f)
-//                    ) {
-//                        BottomTaskBar()
-//                    }
+    Project1PoundsTheme {
+        Scaffold(
+            topBar = {
+                TopAppBar {
+                    Text(text ="Calories")
+                }
+            },
+            bottomBar = {
+                TaskBar()
+            },
+            content = {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    FoodSearch()
+                    CalorieProgress(
+                        Calories.meals.sumOf { it.calories }.toFloat() / 2000.0f
+                    )
+                    SavedFoodItems(Calories.meals)
+                }
+            }
+        )
     }
-
 }
 
 @Composable
@@ -301,54 +264,6 @@ fun FoodCard(meal: Meal) {
                         } else {
                             readyToDraw = true
                         }
-                    }
-                )
-            }
-        }
-    }
-}
-
-@ExperimentalMaterialApi
-@Composable
-fun BottomTaskBar() {
-    val context = LocalContext.current
-
-    BottomAppBar(
-        modifier = Modifier
-            .fillMaxWidth(),
-        backgroundColor = MaterialTheme.colors.background,
-        contentColor = MaterialTheme.colors.onBackground,
-    ) {
-        BottomNavigation()
-        {
-            var selectedItem by remember { mutableStateOf(0) }
-            val items = listOf(
-                "Macros",
-                "Calories",
-                "Progress",
-                "Penalties",
-                "Promos"
-            )
-            items.forEachIndexed { index, item ->
-                BottomNavigationItem(
-                    label = { Text(text = item) },
-                    icon = { Icon(Icons.Filled.Info, "") },
-                    selected = selectedItem == index,
-                    onClick = {
-                        selectedItem = index
-                        context.startActivity(
-                            Intent(
-                                context,
-                                when (item) {
-                                    "Macros"    -> Macros::class.java
-                                    "Calories"  -> Calories::class.java
-                                    "Progress"  -> Progress::class.java
-                                    "Penalties" -> Penalties::class.java
-                                    "Promos"    -> Promotions::class.java
-                                    else        -> MainActivity::class.java
-                                }
-                            )
-                        )
                     }
                 )
             }

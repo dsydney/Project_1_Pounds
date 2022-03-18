@@ -43,17 +43,17 @@ fun BottomNavBar() {
 
                     BottomNavItem(
 
-                        name = "Macros",
-                        route = "macros",
-                        icon = Icons.Default.PieChart
+                        name = "Calories",
+                        route = "calories",
+                        icon = Icons.Default.LocalDining
 
                     ),
 
                     BottomNavItem(
 
-                        name = "Calories",
-                        route = "calories",
-                        icon = Icons.Default.LocalDining
+                        name = "Macros",
+                        route = "macros",
+                        icon = Icons.Default.PieChart
 
                     ),
 
@@ -110,16 +110,16 @@ fun Navigation(
 
 ) {
 
-    NavHost(navController = navController, startDestination = "macros") {
+    NavHost(navController = navController, startDestination = "calories") {
 
-        composable("macros") {
-
-            MacroScreen()
-
-        }
         composable("calories") {
 
             CaloriesMain()
+
+        }
+        composable("macros") {
+
+            MacroScreen()
 
         }
         composable("progress") {
@@ -177,17 +177,13 @@ fun BottomNavigationBar(
 
                         Icon(imageVector = item.icon, contentDescription = item.name)
 
-                        if(selected) {
+                        Text(
 
-                            Text(
+                            text = item.name,
+                            textAlign = TextAlign.Center,
+                            fontSize = 10.sp
 
-                                text = item.name,
-                                textAlign = TextAlign.Center,
-                                fontSize = 10.sp
-
-                            )
-
-                        }
+                        )
 
                     }
 
