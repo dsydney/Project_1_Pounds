@@ -1,6 +1,8 @@
 package com.revature.project1pounds
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -11,7 +13,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -62,6 +66,7 @@ fun CalorieLimit(protein:Float, fats:Float, carbs:Float) : Int {
 
 @Composable
 fun Sliders() {
+    val context = LocalContext.current
     var proteinSliderValue by rememberSavable { mutableStateOf(0f) }
     var carbsSliderValue by rememberSavable { mutableStateOf(0f) }
     var fatsSliderValue by rememberSavable { mutableStateOf(0f) }
@@ -73,6 +78,19 @@ fun Sliders() {
             Text(text = "${CalorieLimit(proteinSliderValue,fatsSliderValue,carbsSliderValue)} ",
                 color = Color.Red,
                 style=MaterialTheme.typography.h6)
+            
+             Column(modifier = Modifier.fillMaxWidth(),
+             horizontalAlignment = Alignment.End) {
+                 Button(onClick = {
+                     Toast.makeText(context, "Saved changes", Toast.LENGTH_SHORT).show()
+
+                     context.startActivity(Intent(context, Calories::class.java))
+                 }) {
+                     Text(text = "Save",
+                     modifier = Modifier.padding(1.dp))
+
+                 }
+             }
         }
     }
 

@@ -2,6 +2,7 @@ package com.revature.project1pounds
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -16,9 +17,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.getSelectedText
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.revature.project1pounds.datafile.Account
+import com.revature.project1pounds.datafile.accountList
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
+
+var tempEmail:String=""
+var tempPassword:String=""
+var tempName:String=""
+var tempLastname:String=""
 
 class Registration : ComponentActivity() {
     @OptIn(ExperimentalMaterialApi::class)
@@ -38,19 +47,22 @@ fun registrationPage()
     Column(modifier=Modifier.verticalScroll(rememberScrollState()),horizontalAlignment = Alignment.CenterHorizontally) {
         Image(painter= painterResource(R.drawable.poundswhitebackground),modifier=Modifier.padding(20.dp), contentDescription = "Pounds logo")
         accountComponent(text ="Please enter your Email " )
-        registrationField("Email")
+        emailField("Email")
 
         accountComponent(text = "Please enter a Password")
-        registrationField(entry = "Password")
+        passwordField(entry = "Password")
 
         accountComponent(text = "Please enter your first name")
-        registrationField(entry = "First Name")
+        firstnameField(entry = "First Name")
 
         accountComponent(text = "Please enter your last name")
-        registrationField(entry = "Last Name")
+        lastNameField(entry = "Last Name")
 
         Spacer(modifier = Modifier.height(40.dp))
-        Button(onClick = { context.startActivity(Intent(context, PaymentOptions::class.java))},
+        Button(onClick = {
+            accountList.put(tempEmail, Account(tempName, tempLastname, tempEmail, tempPassword))
+            Log.d("Checking accounts", accountList.toString())
+            context.startActivity(Intent(context, PaymentOptions::class.java))},
             colors= ButtonDefaults.buttonColors(
                 backgroundColor = Color(211,26,26)
             ),
@@ -67,7 +79,7 @@ fun registrationPage()
 }
 
 @Composable
-fun registrationField(entry:String)
+fun emailField(entry:String)
 {
     Surface(color= Color.White,modifier= Modifier
         .padding(5.dp)
@@ -82,6 +94,65 @@ fun registrationField(entry:String)
             },
             modifier = Modifier.padding(7.dp),
         )
+        tempEmail=text.text
+    }
+
+}
+@Composable
+fun passwordField(entry:String)
+{
+    Surface(color= Color.White,modifier= Modifier
+        .padding(5.dp)
+        .fillMaxWidth())
+    {
+        var text by remember{ mutableStateOf(TextFieldValue(entry)) }
+        TextField(
+
+            value =text,
+            onValueChange = {
+                text=it
+            },
+            modifier = Modifier.padding(7.dp),
+        )
+        tempPassword=text.text
+    }
+}
+@Composable
+fun firstnameField(entry:String)
+{
+    Surface(color= Color.White,modifier= Modifier
+        .padding(5.dp)
+        .fillMaxWidth())
+    {
+        var text by remember{ mutableStateOf(TextFieldValue(entry)) }
+        TextField(
+
+            value =text,
+            onValueChange = {
+                text=it
+            },
+            modifier = Modifier.padding(7.dp),
+        )
+        tempName=text.text
+    }
+}
+@Composable
+fun lastNameField(entry:String)
+{
+    Surface(color= Color.White,modifier= Modifier
+        .padding(5.dp)
+        .fillMaxWidth())
+    {
+        var text by remember{ mutableStateOf(TextFieldValue(entry)) }
+        TextField(
+
+            value =text,
+            onValueChange = {
+                text=it
+            },
+            modifier = Modifier.padding(7.dp),
+        )
+        tempLastname=text.text
     }
 }
 @OptIn(ExperimentalMaterialApi::class)

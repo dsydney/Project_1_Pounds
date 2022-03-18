@@ -17,10 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.revature.project1pounds.datafile.Account
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
 @ExperimentalMaterialApi
-class MainActivity : ComponentActivity() {
+class MainActivity(profile: Account) : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -73,12 +74,12 @@ fun TaskBar() {
                             Intent(
                                 context,
                                 when (item) {
-                                    "Macros"    -> Macros::class.java
-                                    "Calories"  -> Calories::class.java
-                                    "Progress"  -> Progress::class.java
-                                    "Penalties" -> Penalties::class.java
-                                    "Promos"    -> Promotions::class.java
-                                    else        -> MainActivity::class.java
+                                    "Macros"    -> Macros(profile)::class.java
+                                    "Calories"  -> Calories(profile)::class.java
+                                    "Progress"  -> Progress(profile)::class.java
+                                    "Penalties" -> Penalties(profile)::class.java
+                                    "Promos"    -> Promotions(profile)::class.java
+                                    else        -> MainActivity(profile)::class.java
                                 }
                             )
                         )

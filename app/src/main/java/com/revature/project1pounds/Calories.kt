@@ -1,6 +1,5 @@
 package com.revature.project1pounds
 
-import android.content.Intent
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
@@ -13,8 +12,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -24,18 +21,19 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.revature.project1pounds.datafile.account
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
 class Calories: ComponentActivity() {
     companion object {
         var meals by mutableStateOf(
-            mutableStateListOf<Meal>(
+            mutableStateListOf(
                 Meal("chicken",5,15,0),
                 Meal("bread",20,0,2),
                 Meal("gorp", 50, 50, 50),
@@ -46,19 +44,17 @@ class Calories: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CaloriesMain()
+//            CaloriesMain()
         }
     }
 }
 
 @Composable
-fun CaloriesMain() {
+fun CaloriesMain(user: account) {
     Project1PoundsTheme {
         Scaffold(
             topBar = {
-                TopAppBar {
-                    Text(text ="Calories")
-                }
+                TopAppBar( title = { Text("Calories") })
             },
             bottomBar = {
                 TaskBar()
@@ -68,9 +64,10 @@ fun CaloriesMain() {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    FoodSearch()
+                    FoodSearch(user)
                     CalorieProgress(
-                        Calories.meals.sumOf { it.calories }.toFloat() / 2000.0f
+                        Calories.meals.sumOf { it.calories }.toFloat() /
+                                (user.calorieGoal?.toFloat() ?: 2000f)
                     )
                     SavedFoodItems(Calories.meals)
                 }
@@ -80,7 +77,7 @@ fun CaloriesMain() {
 }
 
 @Composable
-fun FoodSearch() {
+fun FoodSearch(user: account) {
     var name by rememberSaveable { mutableStateOf("") }
     var carb by rememberSaveable { mutableStateOf("") }
     var protein by rememberSaveable { mutableStateOf("") }
@@ -90,6 +87,7 @@ fun FoodSearch() {
     val changeCarb: (String) -> Unit = { it -> carb = it }
     val changeProtein: (String) -> Unit = { it -> protein = it }
     val changeFat: (String) -> Unit = { it -> fat = it }
+    val focusManager = LocalFocusManager.current
 
     Column {
         Row(
@@ -158,7 +156,11 @@ fun FoodSearch() {
         ) {
             Button(
                 onClick = {
-                    Calories.meals.add(Meal(name,carb.toInt(),protein.toInt(),fat.toInt()))
+                    val newMeal = Meal(name,carb.toInt(),protein.toInt(),fat.toInt())
+                    Calories.meals.add(newMeal)
+                    user.currentCalories =
+                        user.currentCalories?.plus(newMeal.calories) ?: newMeal.calories
+                    focusManager.clearFocus()
                 }
             ) {
                 Text("Add to meals")
@@ -235,9 +237,9 @@ fun FoodCard(meal: Meal) {
     ) {
         Column {
             Text(
-                meal.name,
+                text = meal.name.uppercase(),
                 modifier = Modifier.padding(8.dp),
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.h6,
                 textAlign = TextAlign.Left
             )
             Row(modifier = Modifier
@@ -250,7 +252,7 @@ fun FoodCard(meal: Meal) {
 
                 Spacer(modifier = Modifier.padding(horizontal = 8.dp))
                 Text(
-                    text = "${meal.calories} Calories  " +
+                    text =  "${meal.calories} Calories  " +
                             "${meal.carbohydrates}g Carbs  " +
                             "${meal.protein}g Protein  " +
                             "${meal.fat}g Fat",
@@ -271,25 +273,25 @@ fun FoodCard(meal: Meal) {
     }
 }
 
-@Preview
-@Composable
-fun PreviewFoodSearch() {
-    Project1PoundsTheme {
-        FoodSearch()
-    }
-}
+//@Preview
+//@Composable
+//fun PreviewFoodSearch() {
+//    Project1PoundsTheme {
+//        FoodSearch()
+//    }
+//}
 
-@Preview
-@Composable
-fun PreviewCalorieProgress() {
-    Project1PoundsTheme {
-        Column {
-            CalorieProgress(1.5f)
-            CalorieProgress(0.75f)
-            CalorieProgress(0.4f)
-        }
-    }
-}
+//@Preview
+//@Composable
+//fun PreviewCalorieProgress() {
+//    Project1PoundsTheme {
+//        Column {
+//            CalorieProgress(1.5f)
+//            CalorieProgress(0.75f)
+//            CalorieProgress(0.4f)
+//        }
+//    }
+//}
 
 @Preview
 @Composable
