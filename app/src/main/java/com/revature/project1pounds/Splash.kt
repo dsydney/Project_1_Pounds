@@ -10,7 +10,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,7 +32,6 @@ class Splash : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun StartupSplash() {
     val context = LocalContext.current
@@ -42,14 +40,7 @@ fun StartupSplash() {
             .fillMaxSize()
             .clickable(onClick = { context.startActivity(Intent(context, Login::class.java)) })
             .background(MaterialTheme.colors.primary)
-        )
-        Image(
-            painter = painterResource(R.drawable.pounds),
-            contentDescription = "",
-            modifier = Modifier.fillMaxSize(),
-            alignment = Alignment.Center,
-            contentScale = ContentScale.Fit,
-        )
+
     }
 }
 
