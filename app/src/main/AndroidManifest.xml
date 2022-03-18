@@ -42,7 +42,6 @@
         <activity
             android:name=".Login"
             android:exported="true" />
-
         <activity
             android:name=".Promotions"
             android:exported="false"
@@ -53,7 +52,6 @@
             android:exported="false"
             android:label="@string/title_activity_calories"
             android:theme="@style/Theme.Project1Pounds" />
-
         <activity
             android:name=".Macros"
             android:exported="false"

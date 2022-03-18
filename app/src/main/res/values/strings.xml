@@ -11,5 +11,6 @@
     <string name="title_activity_splash" />
     <string name="title_activity_login" />
     <string name="title_activity_registration">Registration</string>
+    <string name="title_activity_line_chart">LineChart</string>
 
 </resources>
