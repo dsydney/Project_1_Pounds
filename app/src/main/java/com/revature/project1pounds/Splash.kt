@@ -40,7 +40,14 @@ fun StartupSplash() {
             .fillMaxSize()
             .clickable(onClick = { context.startActivity(Intent(context, Login::class.java)) })
             .background(MaterialTheme.colors.primary)
-
+        )
+        Image(
+            painter = painterResource(R.drawable.pounds),
+            contentDescription = "",
+            modifier = Modifier.fillMaxSize(),
+            alignment = Alignment.Center,
+            contentScale = ContentScale.Fit,
+        )
     }
 }
 
