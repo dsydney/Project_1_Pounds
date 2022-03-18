@@ -58,13 +58,8 @@ fun LoginScreen() {
         .padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Welcome()
         EmailPassword()
-        //Password()
-//        SignInButton()
-//        RegisterButton()
     }
 }
-
-
 
 @Composable
 fun Welcome() {
@@ -151,11 +146,8 @@ fun EmailPassword() {
     )
     Column(modifier = Modifier.fillMaxWidth(),
     horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "${message.value}",
-            color = Color.Red)
+        Text(text = "${message.value}", color = Color.Red)
     }
-
-
 
     //login button
     Button(
