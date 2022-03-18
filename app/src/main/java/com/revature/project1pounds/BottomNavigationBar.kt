@@ -43,17 +43,17 @@ fun BottomNavBar() {
 
                     BottomNavItem(
 
-                        name = "Macros",
-                        route = "macros",
-                        icon = Icons.Default.PieChart
+                        name = "Calories",
+                        route = "calories",
+                        icon = Icons.Default.LocalDining
 
                     ),
 
                     BottomNavItem(
 
-                        name = "Calories",
-                        route = "calories",
-                        icon = Icons.Default.LocalDining
+                        name = "Macros",
+                        route = "macros",
+                        icon = Icons.Default.PieChart
 
                     ),
 
