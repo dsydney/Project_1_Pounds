@@ -146,7 +146,7 @@ fun HealthyHints() {
     )
     Card(
         modifier = Modifier
-            .padding(10.dp)
+            .absolutePadding(top = 16.dp, bottom = 10.dp, left = 10.dp, right = 10.dp)
             .fillMaxWidth()
             .wrapContentHeight(),
         shape = MaterialTheme.shapes.medium,

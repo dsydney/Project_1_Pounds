@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,7 +39,6 @@ import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
 
 
-@ExperimentalMaterialApi
 class Login : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,19 +49,18 @@ class Login : ComponentActivity() {
 }
 
 
-@ExperimentalMaterialApi
 @Composable
 fun LoginScreen() {
 
     Column(modifier = Modifier
         .fillMaxSize()
-        .background(Color(0xffebeadd))
+        //.background()
         .padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Welcome()
-        Email()
-        Password()
-        SignInButton()
-        RegisterButton()
+        EmailPassword()
+        //Password()
+//        SignInButton()
+//        RegisterButton()
     }
 }
 
@@ -82,43 +81,52 @@ fun Welcome() {
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun Email() {
-    val emailState = remember{ mutableStateOf(TextFieldValue())}     //keeps track of cursor
+fun EmailPassword() {
+    val password = rememberSaveable() { mutableStateOf("") }
+    val showPassword = remember { mutableStateOf(false) }
+    val email = rememberSaveable() { mutableStateOf("") }
+    var message = remember() { mutableStateOf("")  }//keeps track of cursor
     val focusManager = LocalFocusManager.current
-    TextField(modifier = Modifier
-        .padding(16.dp)
-        .fillMaxWidth(),
-        value = emailState.value,
-        onValueChange = { emailState.value = it},
-        label = { Text(text = "Email")},
+    val context = LocalContext.current
+
+    //Email text field
+    TextField(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth(),
+        value = email.value,
+        onValueChange = { email.value = it },
+        label = { Text(text = "Email") },
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color(0xff586ae0),
             unfocusedIndicatorColor = Color.Transparent
         ),
         shape = RoundedCornerShape(8.dp),
         keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done, keyboardType = KeyboardType.Email))
-}
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Done,
+            keyboardType = KeyboardType.Email
+        )
+    )
 
-@Composable
-fun Password() {
-    val passwordState = remember { mutableStateOf(TextFieldValue())}
-    val showPassword = remember { mutableStateOf(false)}
-    val focusManager = LocalFocusManager.current
+    //Password text field
     TextField(
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth(),
-        value = passwordState.value,
-        onValueChange = { passwordState.value = it},
-        label = { Text(text = "Password")},
+        value = password.value,
+        onValueChange = { password.value = it },
+        label = { Text(text = "Password") },
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color(0xff586ae0)
         ),
         shape = RoundedCornerShape(8.dp),
         keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done, keyboardType = KeyboardType.Password),
-        visualTransformation = if (showPassword.value){
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Done,
+            keyboardType = KeyboardType.Password
+        ),
+        visualTransformation = if (showPassword.value) {
             VisualTransformation.None  //keep dots
         } else {
             PasswordVisualTransformation()   //show password
@@ -141,29 +149,59 @@ fun Password() {
             }
         }
     )
-}
+    Column(modifier = Modifier.fillMaxWidth(),
+    horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = "${message.value}",
+            color = Color.Red)
+    }
 
 
-@ExperimentalMaterialApi
-@OptIn(ExperimentalComposeUiApi::class)
-@Composable
-fun SignInButton() {
-    val context = LocalContext.current
-    //val focusManager = LocalFocusManager.current
+
+    //login button
     Button(
         onClick = {
-            Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG).show()
-            context.startActivity(Intent(context, MainActivity::class.java))
-        },
+            if(loginSuccessful(email.value,password.value)) {
+                Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG).show()
+                context.startActivity(Intent(context, Progress::class.java))
+            } else {
+                message.value = "Invalid username/password"
+            }
+                  },
         modifier = Modifier
-            .absolutePadding(top = 30.dp, left = 8.dp, right = 8.dp, bottom = 8.dp)
+            .absolutePadding(top = 16.dp, left = 8.dp, right = 8.dp, bottom = 8.dp)
             .fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color(0xff586ae0)
-        )) {
+        )
+    )
+    {
         Text("Login")
     }
+    RegisterButton()
 }
+
+
+
+fun loginSuccessful(user:String, pass:String): Boolean {
+    var userSuccessful:Boolean = false
+    var passSuccessful:Boolean = false
+    val users = listOf<String>("brandon@gmail.com", "michael@gmail.com", "david@gmail.com", "jonathan@gmail.com","f")
+    val passwords = listOf<String>("tate", "adams", "sydney", "castaneda", "f")
+    for (i in users) {
+        if (user.equals(i)) {
+            userSuccessful = true
+        }
+    }
+
+    for (i in passwords) {
+        if (pass.equals(i)) {
+            passSuccessful = true
+        }
+    }
+
+    if(userSuccessful&&passSuccessful) {return true} else {return false}
+}
+
 
 @Composable
 fun RegisterButton() {
@@ -173,7 +211,7 @@ fun RegisterButton() {
             context.startActivity(Intent(context, PaymentOptions::class.java))
         },
         modifier = Modifier
-            .absolutePadding(top = 8.dp, left = 8.dp, right = 8.dp, bottom = 8.dp)
+            .absolutePadding(top = 4.dp, left = 8.dp, right = 8.dp, bottom = 8.dp)
             .fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.LightGray
@@ -184,7 +222,7 @@ fun RegisterButton() {
 
 
 
-@ExperimentalMaterialApi
+
 @Preview
 @Composable
 fun testLogin() {
