@@ -44,7 +44,7 @@ fun StartupSplash() {
             .background(MaterialTheme.colors.primary)
         )
         Image(
-            painter = painterResource(R.drawable.poundsrightcolor),
+            painter = painterResource(R.drawable.pounds),
             contentDescription = "",
             modifier = Modifier.fillMaxSize(),
             alignment = Alignment.Center,
