@@ -11,7 +11,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,7 +47,6 @@ fun MacroScreen() {
         .paddingFromBaseline(bottom = 0.dp)) {
         TaskBar()
     }
-
 }
 
 @Composable
@@ -58,11 +56,9 @@ fun TopBar() {
     }
 }
 
-
 fun CalorieLimit(protein:Float, fats:Float, carbs:Float) : Int {
     return  ((protein.toInt()*4)+(fats.toInt()*9)+(carbs.toInt()*4))
 }
-
 
 @Composable
 fun Sliders() {
@@ -79,9 +75,7 @@ fun Sliders() {
                 style=MaterialTheme.typography.h6)
         }
     }
-    Column(modifier = Modifier.padding(top = 16.dp)) {
-        
-    }
+
     Text(text = "Protein: ${proteinSliderValue.roundToInt()}",
         color = Color.Blue,
         modifier = Modifier.padding(top = 16.dp)
@@ -134,12 +128,11 @@ fun Sliders() {
             fatsSliderValue = newValue
         }
     )
-
 }
 
 @Composable
 fun HealthyHints() {
-    var hints = listOf(
+    val hints = listOf(
         "Healthy eating is a way of life, so it's important to establish routines that are simple and realistic",
         "Whole grains are a very important part of a healthy, balanced diet",
         "Nothing spells health like H-2-O! Drinking water significantly effects energy levels and brain function"
@@ -153,53 +146,38 @@ fun HealthyHints() {
         elevation = 5.dp,
         backgroundColor = MaterialTheme.colors.surface
     ) {
-
-
-        //style=MaterialTheme.typography.h5
         for (i in hints) {
-        Row(modifier = Modifier.absolutePadding(top = 16.dp, bottom = 16.dp, left = 8.dp, right = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            Row(modifier = Modifier.absolutePadding(top = 16.dp, bottom = 16.dp, left = 8.dp, right = 16.dp),
+                verticalAlignment = Alignment.CenterVertically) {
 
-        ) {
+                Column() {
 
-            Column() {
-
-                for (i in hints) {
-
-                    Row() {
-
-                        Image(
-                            painter = painterResource(R.drawable.lightbulbicon_ccexpress),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(50.dp)
-                                .padding(8.dp),
-                            contentScale = ContentScale.Fit
-                        )
-                        Text(
-                            text = i,
-                            style = MaterialTheme.typography.body1,
-                            color = MaterialTheme.colors.onSurface,
-                            modifier = Modifier.padding(bottom = 8.dp)
-                        )
+                    for (i in hints) {
+                        Row() {
+                            Image(
+                                painter = painterResource(R.drawable.lightbulbicon_ccexpress),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(50.dp)
+                                    .padding(8.dp),
+                                contentScale = ContentScale.Fit
+                            )
+                            Text(
+                                text = i,
+                                style = MaterialTheme.typography.body1,
+                                color = MaterialTheme.colors.onSurface,
+                                modifier = Modifier.padding(bottom = 8.dp)
+                            )
+                        }
                     }
-
-
                 }
             }
-            }
-
         }
     }
 }
 
-
-
-
-
-
 @Preview
 @Composable
-fun testMacroScreen() {
+fun TestMacroScreen() {
     MacroScreen()
 }
