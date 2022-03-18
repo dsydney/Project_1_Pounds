@@ -5,6 +5,6 @@ data class account(
     var lastName:String,
     var email:String,
     var password:String,
-    var calorieGoal:Int,
-    var currentCalories:Int?
+    var calorieGoal:Int?=null,
+    var currentCalories:Int?=null
 )
