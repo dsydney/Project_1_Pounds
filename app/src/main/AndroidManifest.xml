@@ -9,15 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project1Pounds">
-        <activity
-            android:name=".InputMeal"
-            android:exported="false"
-            android:label="@string/title_activity_input_meal"
-            android:theme="@style/Theme.Project1Pounds" />
+
         <activity
             android:name=".PaymentOptions"
             android:exported="false"
-
             android:theme="@style/Theme.Project1Pounds" />
         <activity
             android:name=".CreditCardOpt"
@@ -38,7 +33,7 @@
         </activity>
         <activity
             android:name=".Login"
-            android:exported="true"
+            android:exported="true"/>
 
         <activity
             android:name=".Promotions"
@@ -68,7 +63,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.Project1Pounds">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
