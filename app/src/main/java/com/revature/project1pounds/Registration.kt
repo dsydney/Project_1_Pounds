@@ -20,7 +20,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.getSelectedText
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.revature.project1pounds.datafile.account
+import com.revature.project1pounds.datafile.Account
 import com.revature.project1pounds.datafile.accountList
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
@@ -60,7 +60,7 @@ fun registrationPage()
 
         Spacer(modifier = Modifier.height(40.dp))
         Button(onClick = {
-            accountList.put(tempEmail, account(tempName, tempLastname, tempEmail, tempPassword))
+            accountList.put(tempEmail, Account(tempName, tempLastname, tempEmail, tempPassword))
             Log.d("Checking accounts", accountList.toString())
             context.startActivity(Intent(context, PaymentOptions::class.java))},
             colors= ButtonDefaults.buttonColors(
