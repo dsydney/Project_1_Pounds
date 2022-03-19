@@ -24,10 +24,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.revature.project1pounds.datafile.account
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
 @ExperimentalMaterialApi
-class CreditCardOpt : ComponentActivity() {
+class CreditCardOpt() : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -81,7 +82,7 @@ fun cardInfo()
             }
         }
         Spacer(modifier = Modifier.height(40.dp))
-        Button(onClick = { context.startActivity(Intent(context, MainActivity::class.java))},
+        Button(onClick = { context.startActivity(Intent(context, MainActivity()::class.java))},
             colors= ButtonDefaults.buttonColors(
                 backgroundColor = Color(211,26,26)
             ),

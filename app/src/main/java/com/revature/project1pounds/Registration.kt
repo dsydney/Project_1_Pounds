@@ -28,6 +28,8 @@ var tempEmail:String=""
 var tempPassword:String=""
 var tempName:String=""
 var tempLastname:String=""
+var passingProfile:account? = null
+var blankAccount: account= account("","","","")
 
 class Registration : ComponentActivity() {
     @OptIn(ExperimentalMaterialApi::class)
@@ -60,9 +62,11 @@ fun registrationPage()
 
         Spacer(modifier = Modifier.height(40.dp))
         Button(onClick = {
-            accountList.put(tempEmail, account(tempName, tempLastname, tempEmail, tempPassword))
+             passingProfile= account(tempName, tempLastname, tempEmail, tempPassword)
+
+            accountList.put(tempEmail, passingProfile?: blankAccount)
             Log.d("Checking accounts", accountList.toString())
-            context.startActivity(Intent(context, PaymentOptions::class.java))},
+            context.startActivity(Intent(context, PaymentOptions()::class.java))},
             colors= ButtonDefaults.buttonColors(
                 backgroundColor = Color(211,26,26)
             ),
