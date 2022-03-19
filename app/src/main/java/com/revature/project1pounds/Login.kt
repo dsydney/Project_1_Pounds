@@ -39,7 +39,7 @@ import com.revature.project1pounds.datafile.accountList
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
 
-
+var activeUser = ""
 
 class Login : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -155,11 +155,9 @@ fun EmailPassword() {
     Button(
         onClick = {
             if(loginSuccessful(email.value,password.value)) {
+                activeUser = email.value
                 Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG).show()
-                //Need to go to MainActivity so that the bottom nav bar is present, otherwise, you get
-                // stuck on Progress with no way to navigate.
-                var i=null
-                context.startActivity(Intent(context, MainActivity(accountList.getValue(email.value))::class.java))
+                context.startActivity(Intent(context, MainActivity()::class.java))
             } else {
                 message.value = "Invalid username/password"
             }

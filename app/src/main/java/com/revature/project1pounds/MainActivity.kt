@@ -21,14 +21,14 @@ import com.revature.project1pounds.datafile.Account
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
 @ExperimentalMaterialApi
-class MainActivity(var profile: Account) : ComponentActivity() {
+class MainActivity() : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             Project1PoundsTheme {
 
                 //Main()
-                BottomNavBar(profile)
+                BottomNavBar()
 
             }
         }
