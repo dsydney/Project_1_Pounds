@@ -27,7 +27,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.revature.project1pounds.datafile.account
+import com.revature.project1pounds.datafile.Account
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
 class Calories: ComponentActivity() {
@@ -50,7 +50,7 @@ class Calories: ComponentActivity() {
 }
 
 @Composable
-fun CaloriesMain(user: account) {
+fun CaloriesMain(user: Account) {
     Project1PoundsTheme {
         Scaffold(
             topBar = {
@@ -77,7 +77,7 @@ fun CaloriesMain(user: account) {
 }
 
 @Composable
-fun FoodSearch(user: account) {
+fun FoodSearch(user: Account) {
     var name by rememberSaveable { mutableStateOf("") }
     var carb by rememberSaveable { mutableStateOf("") }
     var protein by rememberSaveable { mutableStateOf("") }

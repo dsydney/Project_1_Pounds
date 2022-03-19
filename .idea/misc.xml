@@ -29,13 +29,11 @@
         <entry key="../../../../layout/compose-model-1647570730369.xml" value="0.2740740740740741" />
         <entry key="../../../../layout/compose-model-1647572886240.xml" value="0.2922297297297297" />
         <entry key="../../../../layout/compose-model-1647575529191.xml" value="0.1" />
-        <entry key="../../../../layout/compose-model-1647638257487.xml" value="0.1" />
-        <entry key="../../../../layout/compose-model-1647638346450.xml" value="0.1" />
-        <entry key="../../../../layout/compose-model-1647640090875.xml" value="0.1" />
+        <entry key="..\:/Revature/Project1/03 Forks/Project_1_Pounds/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1095" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
