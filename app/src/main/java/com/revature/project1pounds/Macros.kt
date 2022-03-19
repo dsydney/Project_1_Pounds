@@ -49,7 +49,7 @@ fun MacroScreen() {
     Row(modifier = Modifier
         .fillMaxSize()
         .paddingFromBaseline(bottom = 0.dp)) {
-        TaskBar()
+       // TaskBar()
     }
 }
 

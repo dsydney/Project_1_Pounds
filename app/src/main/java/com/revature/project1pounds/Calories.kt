@@ -56,9 +56,12 @@ fun CaloriesMain(user: Account) {
             topBar = {
                 TopAppBar( title = { Text("Calories") })
             },
+            /*
             bottomBar = {
                 TaskBar()
             },
+
+             */
             content = {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,

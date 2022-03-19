@@ -1,5 +1,6 @@
 package com.revature.project1pounds
 
+import com.revature.project1pounds.datafile.Account
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,7 +32,7 @@ data class BottomNavItem(
 
 @ExperimentalMaterialApi
 @Composable
-fun BottomNavBar() {
+fun BottomNavBar(profile: Account) {
 
     val navController = rememberNavController()
     Scaffold(
@@ -95,7 +96,7 @@ fun BottomNavBar() {
 
     ) {
 
-        Navigation(navController = navController)
+        Navigation(navController = navController, profile)
 
     }
 
@@ -106,7 +107,8 @@ fun BottomNavBar() {
 @Composable
 fun Navigation(
 
-    navController: NavHostController
+    navController: NavHostController,
+    profile: Account
 
 ) {
 
@@ -114,7 +116,7 @@ fun Navigation(
 
         composable("calories") {
 
-            CaloriesMain()
+            CaloriesMain(profile)
 
         }
         composable("macros") {
