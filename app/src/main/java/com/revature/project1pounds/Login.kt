@@ -158,6 +158,7 @@ fun EmailPassword() {
                 Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG).show()
                 //Need to go to MainActivity so that the bottom nav bar is present, otherwise, you get
                 // stuck on Progress with no way to navigate.
+                var i=null
                 context.startActivity(Intent(context, MainActivity(accountList.getValue(email.value))::class.java))
             } else {
                 message.value = "Invalid username/password"
@@ -180,20 +181,25 @@ fun EmailPassword() {
 
 fun loginSuccessful(user:String, pass:String): Boolean {
 
-    var userSuccessful:Boolean = false
-    var passSuccessful:Boolean = false
+    var userSuccessful: Boolean = false
+    var passSuccessful: Boolean = false
 //    val users = listOf<String>("brandon@gmail.com", "michael@gmail.com", "david@gmail.com", "jonathan@gmail.com","f")
 //    val passwords = listOf<String>("tate", "adams", "sydney", "castaneda", "f")
 
-    if ((accountList.containsKey(user)))
+    if ((accountList.containsKey(user))) {
         userSuccessful = true
+        var i = accountList.getValue(user)
+        if (i.password.equals(pass))
+            passSuccessful = true
+    }
 
-    var i  = accountList.getValue(user)
 
-    if (i.password.equals(pass))
-        passSuccessful = true
 
-    if(userSuccessful&&passSuccessful) {return true} else {return false}
+    if (userSuccessful && passSuccessful) {
+        return true
+    } else {
+        return false
+    }
 }
 
 

@@ -19,11 +19,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.revature.project1pounds.datafile.Account
 import kotlin.math.roundToInt
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 import androidx.compose.runtime.saveable.rememberSaveable as rememberSavable
 
-class Macros : ComponentActivity() {
+class Macros() : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -197,5 +198,5 @@ fun HealthyHints() {
 @Preview
 @Composable
 fun TestMacroScreen() {
-    MacroScreen()
+    //MacroScreen()
 }
