@@ -40,13 +40,10 @@ class MainActivity(var profile: Account) : ComponentActivity() {
 fun Preview() {
     TaskBar()
 }
-
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TaskBar() {
-
     val context = LocalContext.current
-
     BottomAppBar(
         modifier = Modifier
             .fillMaxWidth(),
@@ -88,7 +85,6 @@ fun TaskBar() {
             }
         }
     }
-
 }
 */
 
