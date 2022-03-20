@@ -26,9 +26,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.revature.project1pounds.datafile.account
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
-class PaymentOptions : ComponentActivity() {
+class PaymentOptions() : ComponentActivity() {
     @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +51,7 @@ fun paymentScreen()
         Spacer(modifier = Modifier.height(15.dp))
         paymentOptionsComponent(text = "Please Choose A Way To Invest In Yourself ")
         Spacer(modifier = Modifier.height(50.dp))
-        Button(onClick = { context.startActivity(Intent(context,BankAccountOpt::class.java))  },
+        Button(onClick = { context.startActivity(Intent(context,BankAccountOpt()::class.java))  },
             colors= ButtonDefaults.buttonColors(
                 backgroundColor = Color(211,26,26)
             ),
@@ -63,7 +64,7 @@ fun paymentScreen()
             Text("Link Bank Account",color = Color.White)
         }
         Spacer(modifier = Modifier.height(30.dp))
-        Button(onClick = { context.startActivity(Intent(context,CreditCardOpt::class.java))},
+        Button(onClick = { context.startActivity(Intent(context,CreditCardOpt()::class.java))},
             colors= ButtonDefaults.buttonColors(
                 backgroundColor = Color(211,26,26)
             ),
