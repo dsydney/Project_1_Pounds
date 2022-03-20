@@ -17,6 +17,8 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.revature.project1pounds.datafile.Account
@@ -76,9 +78,12 @@ fun Sliders() {
     Column(modifier = Modifier.padding(top = 8.dp)) {
         Row() {
             Text(text = "Daily Calorie Goal: ",
-                style=MaterialTheme.typography.h6)
+                style=MaterialTheme.typography.h6,
+                color=Color.Red,
+                fontStyle = FontStyle.Italic,
+                fontFamily = FontFamily.SansSerif)
             Text(text = "${CalorieLimit(proteinSliderValue,fatsSliderValue,carbsSliderValue)} ",
-                color = Color.Red,
+                color = Color(0xff3aa62e),
                 style=MaterialTheme.typography.h6)
             
              Column(modifier = Modifier.fillMaxWidth(),
