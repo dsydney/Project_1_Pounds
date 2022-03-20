@@ -2,6 +2,7 @@ package com.revature.project1pounds
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -26,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.revature.project1pounds.datafile.Account
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
+import kotlin.math.absoluteValue
 
 class Calories {
     companion object {
@@ -76,6 +79,7 @@ fun FoodSearch(user: Account) {
     val changeFat: (String) -> Unit = { it -> fat = it }
 
     val focusManager = LocalFocusManager.current
+    val context = LocalContext.current
 
     Column {
         Row(
@@ -102,9 +106,39 @@ fun FoodSearch(user: Account) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            MacroTextField("Carb", carb, changeCarb)
-            MacroTextField("Protein", protein, changeProtein)
-            MacroTextField("Fat", fat, changeFat)
+            TextField(
+                value = carb,
+                onValueChange = changeCarb,
+                modifier = Modifier
+                    .requiredWidth(LocalConfiguration.current.screenWidthDp.dp / 4f)
+                    .padding(horizontal = 2.dp),
+                label = { Text("Carb") },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                )
+            )
+            TextField(
+                value = protein,
+                onValueChange = changeProtein,
+                modifier = Modifier
+                    .requiredWidth(LocalConfiguration.current.screenWidthDp.dp / 4f)
+                    .padding(horizontal = 2.dp),
+                label = { Text("Protein") },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                )
+            )
+            TextField(
+                value = fat,
+                onValueChange = changeFat,
+                modifier = Modifier
+                    .requiredWidth(LocalConfiguration.current.screenWidthDp.dp / 4f)
+                    .padding(horizontal = 2.dp),
+                label = { Text("Fat") },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                )
+            )
         }
 
         Row(
@@ -115,32 +149,23 @@ fun FoodSearch(user: Account) {
         ) {
             Button(
                 onClick = {
-                    val newMeal = Meal(name,carb.toInt(),protein.toInt(),fat.toInt())
+                    val newMeal = Meal(
+                        name,
+                        carb.toInt().absoluteValue,
+                        protein.toInt().absoluteValue,
+                        fat.toInt().absoluteValue
+                    )
                     Calories.meals.add(newMeal)
                     user.currentCalories =
                         user.currentCalories?.plus(newMeal.calories) ?: newMeal.calories
                     focusManager.clearFocus()
+                    Toast.makeText(context, "Meal Added", Toast.LENGTH_LONG).show()
                 }
             ) {
                 Text("Add to meals")
             }
         }
     }
-}
-
-@Composable
-fun MacroTextField(label: String, value: String, change: (String) -> Unit) {
-    TextField(
-        value = value,
-        onValueChange = change,
-        modifier = Modifier
-            .requiredWidth(LocalConfiguration.current.screenWidthDp.dp / 4f)
-            .padding(horizontal = 2.dp),
-        label = { Text(label) },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Number,
-        )
-    )
 }
 
 @Composable
