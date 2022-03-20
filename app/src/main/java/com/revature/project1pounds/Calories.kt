@@ -2,9 +2,6 @@ package com.revature.project1pounds
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -30,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.revature.project1pounds.datafile.Account
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
-class Calories: ComponentActivity() {
+class Calories {
     companion object {
         var meals by mutableStateOf(
             mutableStateListOf(
@@ -39,13 +36,6 @@ class Calories: ComponentActivity() {
                 Meal("gorp", 50, 50, 50),
             )
         )
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-//            CaloriesMain()
-        }
     }
 }
 
@@ -56,12 +46,6 @@ fun CaloriesMain(user: Account) {
             topBar = {
                 TopAppBar( title = { Text("Calories") })
             },
-            /*
-            bottomBar = {
-                TaskBar()
-            },
-
-             */
             content = {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -90,6 +74,7 @@ fun FoodSearch(user: Account) {
     val changeCarb: (String) -> Unit = { it -> carb = it }
     val changeProtein: (String) -> Unit = { it -> protein = it }
     val changeFat: (String) -> Unit = { it -> fat = it }
+
     val focusManager = LocalFocusManager.current
 
     Column {
@@ -100,8 +85,7 @@ fun FoodSearch(user: Account) {
             horizontalArrangement = Arrangement.Center,
         ) {
             OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth(.9f),
+                modifier = Modifier.fillMaxWidth(.9f),
                 value = name,
                 onValueChange = changeName,
                 label = { Text("What are you eating?") },
@@ -110,6 +94,7 @@ fun FoodSearch(user: Account) {
                 leadingIcon = { Icon(Icons.Filled.Search, "") },
             )
         }
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -117,40 +102,11 @@ fun FoodSearch(user: Account) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            TextField(
-                value = carb,
-                onValueChange = changeCarb,
-                modifier = Modifier
-                    .requiredWidth(LocalConfiguration.current.screenWidthDp.dp / 4f)
-                    .padding(horizontal = 2.dp),
-                label = { Text("Carbs") },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number,
-                ),
-            )
-            TextField(
-                value = protein,
-                onValueChange = changeProtein,
-                modifier = Modifier
-                    .requiredWidth(LocalConfiguration.current.screenWidthDp.dp / 4f)
-                    .padding(horizontal = 2.dp),
-                label = { Text("Protein") },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number,
-                ),
-            )
-            TextField(
-                value = fat,
-                onValueChange = changeFat,
-                modifier = Modifier
-                    .requiredWidth(LocalConfiguration.current.screenWidthDp.dp / 4f)
-                    .padding(horizontal = 2.dp),
-                label = { Text("Fat") },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number,
-                ),
-            )
+            MacroTextField("Carb", carb, changeCarb)
+            MacroTextField("Protein", protein, changeProtein)
+            MacroTextField("Fat", fat, changeFat)
         }
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -173,6 +129,21 @@ fun FoodSearch(user: Account) {
 }
 
 @Composable
+fun MacroTextField(label: String, value: String, change: (String) -> Unit) {
+    TextField(
+        value = value,
+        onValueChange = change,
+        modifier = Modifier
+            .requiredWidth(LocalConfiguration.current.screenWidthDp.dp / 4f)
+            .padding(horizontal = 2.dp),
+        label = { Text(label) },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number,
+        )
+    )
+}
+
+@Composable
 fun CalorieProgress(progress: Float = 0.0f) {
     Row(
         modifier = Modifier
@@ -180,7 +151,6 @@ fun CalorieProgress(progress: Float = 0.0f) {
             .padding(8.dp),
         horizontalArrangement = Arrangement.Center
     ) {
-//        Text("Today's Calories")
         LinearProgressIndicator(
             progress = if (progress > 1.0f) 1.0f else progress,
             modifier = Modifier
@@ -196,15 +166,9 @@ fun CalorieProgress(progress: Float = 0.0f) {
 @Composable
 fun progressColor(progress: Float): Color {
     return when {
-        progress > 1.0f -> {
-            Color.Red
-        }
-        progress > 0.6f -> {
-            Color.Yellow
-        }
-        else -> {
-            Color.Cyan
-        }
+        progress > 1.0f -> Color.Red
+        progress > 0.6f -> Color.Yellow
+        else -> Color.Cyan
     }
 }
 
@@ -262,9 +226,9 @@ fun FoodCard(meal: Meal) {
                     style = textStyle,
                     softWrap = false,
                     maxLines = 1,
-                    modifier = Modifier.drawWithContent { if(readyToDraw) drawContent() },
+                    modifier = Modifier.drawWithContent { if (readyToDraw) drawContent() },
                     onTextLayout = { textLayoutResult ->
-                        if(textLayoutResult.didOverflowWidth) {
+                        if (textLayoutResult.didOverflowWidth) {
                             textStyle = textStyle.copy(fontSize = textStyle.fontSize * 0.9)
                         } else {
                             readyToDraw = true
@@ -276,25 +240,37 @@ fun FoodCard(meal: Meal) {
     }
 }
 
-//@Preview
-//@Composable
-//fun PreviewFoodSearch() {
-//    Project1PoundsTheme {
-//        FoodSearch()
-//    }
-//}
 
-//@Preview
-//@Composable
-//fun PreviewCalorieProgress() {
-//    Project1PoundsTheme {
-//        Column {
-//            CalorieProgress(1.5f)
-//            CalorieProgress(0.75f)
-//            CalorieProgress(0.4f)
-//        }
-//    }
-//}
+@Preview
+@Composable
+fun PreviewFoodSearch() {
+    Project1PoundsTheme {
+        FoodSearch(
+            Account(
+                "first",
+                "last",
+                "email",
+                "pass",
+                67,
+                206,
+                146,
+                2000,
+            )
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewCalorieProgress() {
+    Project1PoundsTheme {
+        Column {
+            CalorieProgress(1.5f)
+            CalorieProgress(0.75f)
+            CalorieProgress(0.4f)
+        }
+    }
+}
 
 @Preview
 @Composable
