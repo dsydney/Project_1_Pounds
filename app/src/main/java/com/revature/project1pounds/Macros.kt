@@ -17,9 +17,12 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.revature.project1pounds.datafile.Account
+import com.revature.project1pounds.datafile.accountList
 import kotlin.math.roundToInt
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 import androidx.compose.runtime.saveable.rememberSaveable as rememberSavable
@@ -68,23 +71,29 @@ fun CalorieLimit(protein:Float, fats:Float, carbs:Float) : Int {
 @Composable
 fun Sliders() {
     val context = LocalContext.current
-    var proteinSliderValue by rememberSavable { mutableStateOf(0f) }
-    var carbsSliderValue by rememberSavable { mutableStateOf(0f) }
-    var fatsSliderValue by rememberSavable { mutableStateOf(0f) }
+    var proteinSliderValue by rememberSavable { mutableStateOf(accountList.getValue(activeUser).protein?.toFloat()) }
+    var carbsSliderValue by rememberSavable { mutableStateOf(accountList.getValue(activeUser).carbs?.toFloat()) }
+    var fatsSliderValue by rememberSavable { mutableStateOf(accountList.getValue(activeUser).fats?.toFloat()) }
 
     Column(modifier = Modifier.padding(top = 8.dp)) {
         Row() {
             Text(text = "Daily Calorie Goal: ",
-                style=MaterialTheme.typography.h6)
+                style=MaterialTheme.typography.h6,
+                color=Color.Red,
+                fontStyle = FontStyle.Italic,
+                fontFamily = FontFamily.SansSerif)
             Text(text = "${CalorieLimit(proteinSliderValue,fatsSliderValue,carbsSliderValue)} ",
-                color = Color.Red,
+                color = Color(0xff3aa62e),
                 style=MaterialTheme.typography.h6)
             
              Column(modifier = Modifier.fillMaxWidth(),
              horizontalAlignment = Alignment.End) {
                  Button(onClick = {
+                     accountList.getValue(activeUser).carbs = carbsSliderValue.toInt()
+                     accountList.getValue(activeUser).protein = proteinSliderValue.toInt()
+                     accountList.getValue(activeUser).fats = fatsSliderValue.toInt()
+                     accountList.getValue(activeUser).calorieGoal = CalorieLimit(proteinSliderValue,fatsSliderValue,carbsSliderValue)
                      Toast.makeText(context, "Saved changes", Toast.LENGTH_SHORT).show()
-
                      context.startActivity(Intent(context, Calories::class.java))
                  }) {
                      Text(text = "Save",

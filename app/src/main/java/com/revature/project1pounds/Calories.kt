@@ -44,13 +44,13 @@ class Calories: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-//            CaloriesMain()
+            CaloriesMain()
         }
     }
 }
 
 @Composable
-fun CaloriesMain(user: Account) {
+fun CaloriesMain() {
     Project1PoundsTheme {
         Scaffold(
             topBar = {
@@ -67,10 +67,10 @@ fun CaloriesMain(user: Account) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    FoodSearch(user)
+                    //FoodSearch(user)
                     CalorieProgress(
-                        Calories.meals.sumOf { it.calories }.toFloat() /
-                                (user.calorieGoal?.toFloat() ?: 2000f)
+                        Calories.meals.sumOf { it.calories }.toFloat()
+                                //(user.calorieGoal?.toFloat() ?: 2000f)
                     )
                     SavedFoodItems(Calories.meals)
                 }

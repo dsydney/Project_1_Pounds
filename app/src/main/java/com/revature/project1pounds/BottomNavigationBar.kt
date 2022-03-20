@@ -32,7 +32,7 @@ data class BottomNavItem(
 
 @ExperimentalMaterialApi
 @Composable
-fun BottomNavBar(profile: Account) {
+fun BottomNavBar() {
 
     val navController = rememberNavController()
     Scaffold(
@@ -96,7 +96,7 @@ fun BottomNavBar(profile: Account) {
 
     ) {
 
-        Navigation(navController = navController, profile)
+        Navigation(navController = navController)
 
     }
 
@@ -107,8 +107,7 @@ fun BottomNavBar(profile: Account) {
 @Composable
 fun Navigation(
 
-    navController: NavHostController,
-    profile: Account
+    navController: NavHostController
 
 ) {
 
@@ -116,7 +115,7 @@ fun Navigation(
 
         composable("calories") {
 
-            CaloriesMain(profile)
+            CaloriesMain()
 
         }
         composable("macros") {
