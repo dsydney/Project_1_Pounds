@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.revature.project1pounds.datafile.Account
+import com.revature.project1pounds.datafile.accountList
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 import kotlin.math.absoluteValue
 
@@ -43,7 +44,9 @@ class Calories {
 }
 
 @Composable
-fun CaloriesMain(user: Account) {
+fun CaloriesMain() {
+    val user: Account = accountList.getValue(activeUser)
+
     Project1PoundsTheme {
         Scaffold(
             topBar = {
