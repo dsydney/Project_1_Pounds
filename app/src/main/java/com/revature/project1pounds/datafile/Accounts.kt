@@ -16,8 +16,8 @@ val accountList:MutableMap<String,Account> = mutableMapOf(
 
     "jonathan@gmail.com" to Account("Jonathan",
         "Castaneda",
-        "castaneda",
         "jonathan@gmail.com",
+        "castaneda",
         currentCalories = 0,
         fats= 110,
         carbs = 96,
