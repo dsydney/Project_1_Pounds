@@ -105,6 +105,7 @@ fun PenaltiesMain() {
                     //Insert image of a graph here
                     Card(
 
+                        Modifier.wrapContentHeight(),
                         shape = RoundedCornerShape(10.dp),
                         backgroundColor = DarkGray
 
@@ -240,6 +241,7 @@ fun PenaltiesMain() {
                     //Insert image of a graph here
                     Card(
 
+                        Modifier.wrapContentHeight(),
                         shape = RoundedCornerShape(10.dp),
                         backgroundColor = DarkGray
 
@@ -356,6 +358,7 @@ fun PenaltiesMain() {
                     //Insert image of a graph here
                     Card(
 
+                        Modifier.wrapContentHeight(),
                         shape = RoundedCornerShape(10.dp),
                         backgroundColor = DarkGray
 
