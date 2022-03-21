@@ -3,6 +3,7 @@ package com.revature.project1pounds
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -21,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -28,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.revature.project1pounds.datafile.Account
+import com.revature.project1pounds.datafile.accountList
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
 class Calories: ComponentActivity() {
@@ -51,26 +54,22 @@ class Calories: ComponentActivity() {
 
 @Composable
 fun CaloriesMain() {
+    val user: Account = accountList.getValue(activeUser)
+
     Project1PoundsTheme {
         Scaffold(
             topBar = {
                 TopAppBar( title = { Text("Calories") })
             },
-            /*
-            bottomBar = {
-                TaskBar()
-            },
-
-             */
             content = {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    //FoodSearch(user)
+                    FoodSearch(user)
                     CalorieProgress(
-                        Calories.meals.sumOf { it.calories }.toFloat()
-                                //(user.calorieGoal?.toFloat() ?: 2000f)
+                        Calories.meals.sumOf { it.calories }.toFloat() /
+                                user.calorieGoal.toFloat()
                     )
                     SavedFoodItems(Calories.meals)
                 }
@@ -90,7 +89,9 @@ fun FoodSearch(user: Account) {
     val changeCarb: (String) -> Unit = { it -> carb = it }
     val changeProtein: (String) -> Unit = { it -> protein = it }
     val changeFat: (String) -> Unit = { it -> fat = it }
+
     val focusManager = LocalFocusManager.current
+    val context = LocalContext.current
 
     Column {
         Row(
@@ -100,8 +101,7 @@ fun FoodSearch(user: Account) {
             horizontalArrangement = Arrangement.Center,
         ) {
             OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth(.9f),
+                modifier = Modifier.fillMaxWidth(.9f),
                 value = name,
                 onValueChange = changeName,
                 label = { Text("What are you eating?") },
@@ -110,6 +110,7 @@ fun FoodSearch(user: Account) {
                 leadingIcon = { Icon(Icons.Filled.Search, "") },
             )
         }
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -124,6 +125,8 @@ fun FoodSearch(user: Account) {
                     .requiredWidth(LocalConfiguration.current.screenWidthDp.dp / 4f)
                     .padding(horizontal = 2.dp),
                 label = { Text("Carbs") },
+                singleLine = true,
+                isError = carb.all { it in '0'..'9' },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                 ),
@@ -135,6 +138,8 @@ fun FoodSearch(user: Account) {
                     .requiredWidth(LocalConfiguration.current.screenWidthDp.dp / 4f)
                     .padding(horizontal = 2.dp),
                 label = { Text("Protein") },
+                singleLine = true,
+                isError = protein.all { it in '0'..'9' },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                 ),
@@ -146,11 +151,14 @@ fun FoodSearch(user: Account) {
                     .requiredWidth(LocalConfiguration.current.screenWidthDp.dp / 4f)
                     .padding(horizontal = 2.dp),
                 label = { Text("Fat") },
+                singleLine = true,
+                isError = fat.all { it in '0'..'9' },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                 ),
             )
         }
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -159,11 +167,24 @@ fun FoodSearch(user: Account) {
         ) {
             Button(
                 onClick = {
-                    val newMeal = Meal(name,carb.toInt(),protein.toInt(),fat.toInt())
-                    Calories.meals.add(newMeal)
-                    user.currentCalories =
-                        user.currentCalories?.plus(newMeal.calories) ?: newMeal.calories
-                    focusManager.clearFocus()
+                    if (
+                        carb.all { it in '0'..'9' } &&
+                        protein.all { it in '0'..'9' } &&
+                        fat.all { it in '0'..'9' }
+                    ) {
+                        val newMeal = Meal(name, carb.toInt(), protein.toInt(), fat.toInt())
+                        Calories.meals.add(newMeal)
+                        user.currentCalories =
+                            user.currentCalories.plus(newMeal.calories)
+                        focusManager.clearFocus()
+                        Toast.makeText(context, "Meal Added", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Wrong Macros value(s)",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
             ) {
                 Text("Add to meals")
@@ -180,7 +201,6 @@ fun CalorieProgress(progress: Float = 0.0f) {
             .padding(8.dp),
         horizontalArrangement = Arrangement.Center
     ) {
-//        Text("Today's Calories")
         LinearProgressIndicator(
             progress = if (progress > 1.0f) 1.0f else progress,
             modifier = Modifier
@@ -276,25 +296,17 @@ fun FoodCard(meal: Meal) {
     }
 }
 
-//@Preview
-//@Composable
-//fun PreviewFoodSearch() {
-//    Project1PoundsTheme {
-//        FoodSearch()
-//    }
-//}
-
-//@Preview
-//@Composable
-//fun PreviewCalorieProgress() {
-//    Project1PoundsTheme {
-//        Column {
-//            CalorieProgress(1.5f)
-//            CalorieProgress(0.75f)
-//            CalorieProgress(0.4f)
-//        }
-//    }
-//}
+@Preview
+@Composable
+fun PreviewCalorieProgress() {
+    Project1PoundsTheme {
+        Column {
+            CalorieProgress(1.5f)
+            CalorieProgress(0.75f)
+            CalorieProgress(0.4f)
+        }
+    }
+}
 
 @Preview
 @Composable

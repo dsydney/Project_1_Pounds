@@ -25,7 +25,6 @@ class Splash : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Project1PoundsTheme {
-                // A surface container using the 'background' color from the theme
                 StartupSplash()
             }
         }
@@ -36,17 +35,18 @@ class Splash : ComponentActivity() {
 fun StartupSplash() {
     val context = LocalContext.current
     Crossfade(targetState = context) { context ->
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .clickable(onClick = { context.startActivity(Intent(context, Login::class.java)) })
-            .background(MaterialTheme.colors.primary)
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .clickable(onClick = { context.startActivity(Intent(context, Login::class.java)) })
+                .background(MaterialTheme.colors.primary)
         ) {
             Image(
-            painter = painterResource(R.drawable.pounds),
-            contentDescription = "",
-            modifier = Modifier.fillMaxSize(),
-            alignment = Alignment.Center,
-            contentScale = ContentScale.Fit,
+                painter = painterResource(R.drawable.pounds),
+                contentDescription = "",
+                modifier = Modifier.fillMaxSize(),
+                alignment = Alignment.Center,
+                contentScale = ContentScale.Fit,
             )
         }
     }
