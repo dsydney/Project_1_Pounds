@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.getSelectedText
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,8 +29,9 @@ var tempEmail:String=""
 var tempPassword:String=""
 var tempName:String=""
 var tempLastname:String=""
-var passingProfile:account? = null
-var blankAccount: account= account("","","","")
+var passingProfile:Account? = null
+var blankAccount: Account= Account("","","","")
+var goodLogin=false
 
 class Registration : ComponentActivity() {
     @OptIn(ExperimentalMaterialApi::class)
@@ -62,9 +64,11 @@ fun registrationPage()
 
         Spacer(modifier = Modifier.height(40.dp))
         Button(onClick = {
-
-            Log.d("Checking accounts", accountList.toString())
-            context.startActivity(Intent(context, PaymentOptions()::class.java))},
+            if(goodLogin){
+                passingProfile=Account(tempName, tempLastname, tempEmail, tempPassword)
+                accountList.put(tempEmail, passingProfile!!)
+            context.startActivity(Intent(context, PaymentOptions()::class.java))}
+                         },
             colors= ButtonDefaults.buttonColors(
                 backgroundColor = Color(211,26,26)
             ),
@@ -111,12 +115,26 @@ fun passwordField(entry:String)
         TextField(
 
             value =text,
+            label = {
+                    if (checkPasswordLength(text.text)){
+                         Text(text="Password")
+                    }else{
+                        Text(text="Password must be between 8-12 characters")
+                    }
+            },
             onValueChange = {
                 text=it
             },
             modifier = Modifier.padding(7.dp),
+
         )
-        tempPassword=text.text
+        if(checkPasswordLength(text.text)) {
+            tempPassword = text.text
+            goodLogin=true
+        }else{
+            goodLogin=false
+        }
+
     }
 }
 @Composable
@@ -164,3 +182,9 @@ fun regPreview()
 {
     registrationPage()
 }
+fun checkPasswordLength(password:String):Boolean{
+    return password.length in 8..12
+}
+
+
+
