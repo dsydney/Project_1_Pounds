@@ -36,27 +36,27 @@ import androidx.compose.ui.unit.dp
 import com.revature.project1pounds.datafile.Account
 import com.revature.project1pounds.datafile.accountList
 
+
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
 
-
+var activeUser = ""
 
 class Login : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LoginScreen()
+            Project1PoundsTheme {
+                LoginScreen()
+            }
         }
     }
 }
 
-
 @Composable
 fun LoginScreen() {
-
     Column(modifier = Modifier
         .fillMaxSize()
-        //.background()
         .padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Welcome()
         EmailPassword()
@@ -155,11 +155,9 @@ fun EmailPassword() {
     Button(
         onClick = {
             if(loginSuccessful(email.value,password.value)) {
+                activeUser = email.value
                 Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG).show()
-                //Need to go to MainActivity so that the bottom nav bar is present, otherwise, you get
-                // stuck on Progress with no way to navigate.
-                var i=null
-                context.startActivity(Intent(context, MainActivity(accountList.getValue(email.value))::class.java))
+                context.startActivity(Intent(context, MainActivity()::class.java))
             } else {
                 message.value = "Invalid username/password"
             }
@@ -177,14 +175,9 @@ fun EmailPassword() {
     RegisterButton()
 }
 
-
-
 fun loginSuccessful(user:String, pass:String): Boolean {
-
     var userSuccessful: Boolean = false
     var passSuccessful: Boolean = false
-//    val users = listOf<String>("brandon@gmail.com", "michael@gmail.com", "david@gmail.com", "jonathan@gmail.com","f")
-//    val passwords = listOf<String>("tate", "adams", "sydney", "castaneda", "f")
 
     if ((accountList.containsKey(user))) {
         userSuccessful = true
@@ -193,15 +186,12 @@ fun loginSuccessful(user:String, pass:String): Boolean {
             passSuccessful = true
     }
 
-
-
     if (userSuccessful && passSuccessful) {
         return true
     } else {
         return false
     }
 }
-
 
 @Composable
 fun RegisterButton() {
@@ -219,9 +209,6 @@ fun RegisterButton() {
         Text("Register")
     }
 }
-
-
-
 
 @Preview
 @Composable

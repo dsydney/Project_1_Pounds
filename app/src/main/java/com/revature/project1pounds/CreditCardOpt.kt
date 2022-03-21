@@ -24,10 +24,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.revature.project1pounds.datafile.Account
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
+var goodCreditNumber=false
+
 @ExperimentalMaterialApi
-class CreditCardOpt : ComponentActivity() {
+class CreditCardOpt() : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -46,15 +49,15 @@ fun cardInfo()
     Column(modifier=Modifier.verticalScroll(rememberScrollState()),horizontalAlignment = Alignment.CenterHorizontally) {
         Image(painter= painterResource(R.drawable.poundswhitebackground),modifier=Modifier.padding(20.dp), contentDescription = "Pounds logo")
         accountComponent(text ="Please enter you card number" )
-        accountNumberFieldComponent("Card Number")
+        cardNumberFieldComponent("Card Number")
 
-        accountComponent(text = "Please enter your CCV")
-        accountNumberFieldComponent(entry = "CCV")
+        cardComponent(text = "Please enter your CCV")
+        cardFieldComponent(entry = "CCV")
 
-        accountComponent(text = "Please enter card holders name")
-        banknameField(entry = "Name")
+        cardComponent(text = "Please enter card holders name")
+        cardField(entry = "Name")
 
-        accountComponent(text = "Choose type: Credit or Debit")
+        cardComponent(text = "Choose type: Credit or Debit")
         Spacer(modifier = Modifier.height(20.dp))
         Row(horizontalArrangement = Arrangement.Center) {
             Button(onClick = { /*TODO*/ },
@@ -81,7 +84,9 @@ fun cardInfo()
             }
         }
         Spacer(modifier = Modifier.height(40.dp))
-        Button(onClick = { context.startActivity(Intent(context, MainActivity::class.java))},
+        Button(onClick = {
+            if(goodCreditNumber){
+            context.startActivity(Intent(context, MainActivity()::class.java))}},
             colors= ButtonDefaults.buttonColors(
                 backgroundColor = Color(211,26,26)
             ),
@@ -131,6 +136,35 @@ fun cardFieldComponent(entry:String)
     }
 }
 @Composable
+fun cardNumberFieldComponent(entry:String)
+{
+    Surface(color= Color.White,modifier= Modifier
+        .padding(5.dp)
+        .fillMaxWidth())
+    {
+        var text by remember{ mutableStateOf(TextFieldValue(entry)) }
+        TextField(
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            ,value =text,
+            onValueChange = {
+                text=it
+            },
+            modifier = Modifier.padding(7.dp),
+            label = {
+                if(checkCreditCardNumberLength(text.text))
+                {
+                    Text(text = "Card Number")
+                }
+                else{
+                    Text(text = "Card number should be 16 digits")
+                }
+            }
+
+        )
+        goodCreditNumber = checkCreditCardNumberLength(text.text)
+    }
+}
+@Composable
 fun cardField(entry:String)
 {
     Surface(color= Color.White,modifier= Modifier
@@ -154,3 +188,5 @@ fun cardField(entry:String)
 fun cardPreview() {
     cardInfo()
 }
+
+fun checkCreditCardNumberLength(number:String)=number.length==16

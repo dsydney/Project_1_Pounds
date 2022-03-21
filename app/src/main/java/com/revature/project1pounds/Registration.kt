@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.getSelectedText
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,6 +29,9 @@ var tempEmail:String=""
 var tempPassword:String=""
 var tempName:String=""
 var tempLastname:String=""
+var passingProfile:Account? = null
+var blankAccount: Account= Account("","","","")
+var goodLogin=false
 
 class Registration : ComponentActivity() {
     @OptIn(ExperimentalMaterialApi::class)
@@ -60,9 +64,9 @@ fun registrationPage()
 
         Spacer(modifier = Modifier.height(40.dp))
         Button(onClick = {
-            accountList.put(tempEmail, Account(tempName, tempLastname, tempEmail, tempPassword))
+
             Log.d("Checking accounts", accountList.toString())
-            context.startActivity(Intent(context, PaymentOptions::class.java))},
+            context.startActivity(Intent(context, PaymentOptions()::class.java))},
             colors= ButtonDefaults.buttonColors(
                 backgroundColor = Color(211,26,26)
             ),

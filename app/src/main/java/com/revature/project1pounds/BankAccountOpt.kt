@@ -25,10 +25,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.revature.project1pounds.datafile.Account
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
+var accountNumberInput=""
+var accountNumberInput2=""
+var matchingAccountNumbers=false
 
 @ExperimentalMaterialApi
-class BankAccountOpt : ComponentActivity() {
+class BankAccountOpt() : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -49,7 +53,7 @@ fun bankAccountInfo()
         accountNumberFieldComponent("Account Number")
         
         accountComponent(text = "Re-enter your account number")
-        accountNumberFieldComponent("Account Number")
+        accountNumberFieldComponent2("Account Number")
         
         accountComponent(text = "Please enter your routing number")
         accountNumberFieldComponent(entry = "Routing Number")
@@ -82,7 +86,9 @@ fun bankAccountInfo()
             }
         }
         Spacer(modifier = Modifier.height(40.dp))
-        Button(onClick = { context.startActivity(Intent(context, MainActivity::class.java)) },
+        Button(onClick = {
+            if(matchingAccountNumbers){
+            context.startActivity(Intent(context, MainActivity()::class.java)) }},
             colors=ButtonDefaults.buttonColors(
                 backgroundColor = Color(211,26,26)),
             modifier = Modifier
@@ -128,6 +134,36 @@ fun accountNumberFieldComponent(entry:String)
             },
             modifier = Modifier.padding(7.dp),
         )
+        accountNumberInput=text.text
+    }
+}
+@Composable
+fun accountNumberFieldComponent2(entry:String)
+{
+    Surface(color= Color.White,modifier= Modifier
+        .padding(5.dp)
+        .fillMaxWidth())
+    {
+        var text by remember{ mutableStateOf(TextFieldValue(entry))}
+        TextField(
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            ,value =text,
+            onValueChange = {
+                text=it
+            },
+            modifier = Modifier.padding(7.dp),
+            label = {
+                if (checkAccountNumbers(accountNumberInput,text.text))
+                {
+                    Text(text = "Account numbers match")
+                }
+                else{
+                    Text(text = "Account numbers do not match")
+                }
+
+            }
+        )
+        matchingAccountNumbers= checkAccountNumbers(accountNumberInput,text.text)
     }
 }
 @Composable
@@ -148,4 +184,5 @@ fun banknameField(entry:String)
         )
     }
 }
+fun checkAccountNumbers(number1:String, number2:String)= number1 == number2
 

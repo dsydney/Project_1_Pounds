@@ -3,6 +3,7 @@ package com.revature.project1pounds
 import android.content.Intent
 import android.graphics.fonts.FontStyle
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -17,18 +18,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.revature.project1pounds.datafile.Account
+
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 
 @ExperimentalMaterialApi
-class MainActivity(var profile: Account) : ComponentActivity() {
+class MainActivity() : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             Project1PoundsTheme {
-
+                Log.d("Account was passed", "${passingProfile.toString()}")
                 //Main()
-                BottomNavBar(profile)
+                BottomNavBar()
 
             }
         }

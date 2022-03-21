@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -17,9 +18,12 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.revature.project1pounds.datafile.Account
+import com.revature.project1pounds.datafile.accountList
 import kotlin.math.roundToInt
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
 import androidx.compose.runtime.saveable.rememberSaveable as rememberSavable
@@ -50,7 +54,6 @@ fun MacroScreen() {
     Row(modifier = Modifier
         .fillMaxSize()
         .paddingFromBaseline(bottom = 0.dp)) {
-       // TaskBar()
     }
 }
 
@@ -68,33 +71,39 @@ fun CalorieLimit(protein:Float, fats:Float, carbs:Float) : Int {
 @Composable
 fun Sliders() {
     val context = LocalContext.current
-    var proteinSliderValue by rememberSavable { mutableStateOf(0f) }
-    var carbsSliderValue by rememberSavable { mutableStateOf(0f) }
-    var fatsSliderValue by rememberSavable { mutableStateOf(0f) }
+    var proteinSliderValue by rememberSavable { mutableStateOf(accountList.getValue(activeUser).protein?.toFloat()) }
+    var carbsSliderValue by rememberSavable { mutableStateOf(accountList.getValue(activeUser).carbs?.toFloat()) }
+    var fatsSliderValue by rememberSavable { mutableStateOf(accountList.getValue(activeUser).fats?.toFloat()) }
 
     Column(modifier = Modifier.padding(top = 8.dp)) {
         Row() {
             Text(text = "Daily Calorie Goal: ",
-                style=MaterialTheme.typography.h6)
+                style=MaterialTheme.typography.h6,
+                color=Color.Red,
+                fontStyle = FontStyle.Italic,
+                fontFamily = FontFamily.SansSerif)
             Text(text = "${CalorieLimit(proteinSliderValue,fatsSliderValue,carbsSliderValue)} ",
-                color = Color.Red,
+                color = Color(0xff3aa62e),
                 style=MaterialTheme.typography.h6)
             
              Column(modifier = Modifier.fillMaxWidth(),
              horizontalAlignment = Alignment.End) {
                  Button(onClick = {
+                     accountList.getValue(activeUser).carbs = carbsSliderValue.toInt()
+                     accountList.getValue(activeUser).protein = proteinSliderValue.toInt()
+                     accountList.getValue(activeUser).fats = fatsSliderValue.toInt()
+                     accountList.getValue(activeUser).calorieGoal = CalorieLimit(proteinSliderValue,fatsSliderValue,carbsSliderValue)
                      Toast.makeText(context, "Saved changes", Toast.LENGTH_SHORT).show()
-
                      context.startActivity(Intent(context, Calories::class.java))
                  }) {
                      Text(text = "Save",
                      modifier = Modifier.padding(1.dp))
-
                  }
              }
         }
     }
 
+    //sliders
     Text(text = "Protein: ${proteinSliderValue.roundToInt()}",
         color = Color.Blue,
         modifier = Modifier.padding(top = 16.dp)
@@ -114,16 +123,16 @@ fun Sliders() {
 
     Text(
         text = "Carbs: ${carbsSliderValue.roundToInt()}",
-        color = Color.Red,
+        color = Color(0xfff76314),
         modifier = Modifier.padding(top = 8.dp)
     )
     Slider(
         value = carbsSliderValue,
         valueRange = 0f..300f,
         colors = SliderDefaults.colors(
-            activeTrackColor = Color.Red,
+            activeTrackColor = Color(0xfff76314),
             inactiveTrackColor = Color.LightGray,
-            thumbColor = Color.Red),
+            thumbColor = Color(0xfff76314)),
         modifier = Modifier.padding(4.dp),
         onValueChange = { newValue ->
             carbsSliderValue = newValue
@@ -168,9 +177,7 @@ fun HealthyHints() {
         for (i in hints) {
             Row(modifier = Modifier.absolutePadding(top = 16.dp, bottom = 16.dp, left = 8.dp, right = 16.dp),
                 verticalAlignment = Alignment.CenterVertically) {
-
                 Column() {
-
                     for (i in hints) {
                         Row() {
                             Image(
@@ -198,5 +205,5 @@ fun HealthyHints() {
 @Preview
 @Composable
 fun TestMacroScreen() {
-    //MacroScreen()
+    MacroScreen()
 }

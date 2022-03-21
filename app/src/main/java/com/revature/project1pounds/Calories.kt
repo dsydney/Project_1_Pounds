@@ -2,7 +2,9 @@ package com.revature.project1pounds
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.widget.Toast
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,7 +21,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -27,11 +28,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.revature.project1pounds.datafile.Account
-import com.revature.project1pounds.datafile.accountList
 import com.revature.project1pounds.ui.theme.Project1PoundsTheme
-import kotlin.math.absoluteValue
 
-class Calories {
+class Calories: ComponentActivity() {
     companion object {
         var meals by mutableStateOf(
             mutableStateListOf(
@@ -41,26 +40,37 @@ class Calories {
             )
         )
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            CaloriesMain()
+        }
+    }
 }
 
 @Composable
 fun CaloriesMain() {
-    val user: Account = accountList.getValue(activeUser)
-
     Project1PoundsTheme {
         Scaffold(
             topBar = {
                 TopAppBar( title = { Text("Calories") })
             },
+            /*
+            bottomBar = {
+                TaskBar()
+            },
+
+             */
             content = {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    FoodSearch(user)
+                    //FoodSearch(user)
                     CalorieProgress(
-                        Calories.meals.sumOf { it.calories }.toFloat() /
-                                (user.calorieGoal?.toFloat() ?: 2000f)
+                        Calories.meals.sumOf { it.calories }.toFloat()
+                                //(user.calorieGoal?.toFloat() ?: 2000f)
                     )
                     SavedFoodItems(Calories.meals)
                 }
@@ -80,9 +90,7 @@ fun FoodSearch(user: Account) {
     val changeCarb: (String) -> Unit = { it -> carb = it }
     val changeProtein: (String) -> Unit = { it -> protein = it }
     val changeFat: (String) -> Unit = { it -> fat = it }
-
     val focusManager = LocalFocusManager.current
-    val context = LocalContext.current
 
     Column {
         Row(
@@ -92,7 +100,8 @@ fun FoodSearch(user: Account) {
             horizontalArrangement = Arrangement.Center,
         ) {
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(.9f),
+                modifier = Modifier
+                    .fillMaxWidth(.9f),
                 value = name,
                 onValueChange = changeName,
                 label = { Text("What are you eating?") },
@@ -101,7 +110,6 @@ fun FoodSearch(user: Account) {
                 leadingIcon = { Icon(Icons.Filled.Search, "") },
             )
         }
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -115,10 +123,10 @@ fun FoodSearch(user: Account) {
                 modifier = Modifier
                     .requiredWidth(LocalConfiguration.current.screenWidthDp.dp / 4f)
                     .padding(horizontal = 2.dp),
-                label = { Text("Carb") },
+                label = { Text("Carbs") },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
-                )
+                ),
             )
             TextField(
                 value = protein,
@@ -129,7 +137,7 @@ fun FoodSearch(user: Account) {
                 label = { Text("Protein") },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
-                )
+                ),
             )
             TextField(
                 value = fat,
@@ -140,10 +148,9 @@ fun FoodSearch(user: Account) {
                 label = { Text("Fat") },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
-                )
+                ),
             )
         }
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -152,17 +159,11 @@ fun FoodSearch(user: Account) {
         ) {
             Button(
                 onClick = {
-                    val newMeal = Meal(
-                        name,
-                        carb.toInt().absoluteValue,
-                        protein.toInt().absoluteValue,
-                        fat.toInt().absoluteValue
-                    )
+                    val newMeal = Meal(name,carb.toInt(),protein.toInt(),fat.toInt())
                     Calories.meals.add(newMeal)
                     user.currentCalories =
                         user.currentCalories?.plus(newMeal.calories) ?: newMeal.calories
                     focusManager.clearFocus()
-                    Toast.makeText(context, "Meal Added", Toast.LENGTH_LONG).show()
                 }
             ) {
                 Text("Add to meals")
@@ -179,6 +180,7 @@ fun CalorieProgress(progress: Float = 0.0f) {
             .padding(8.dp),
         horizontalArrangement = Arrangement.Center
     ) {
+//        Text("Today's Calories")
         LinearProgressIndicator(
             progress = if (progress > 1.0f) 1.0f else progress,
             modifier = Modifier
@@ -194,9 +196,15 @@ fun CalorieProgress(progress: Float = 0.0f) {
 @Composable
 fun progressColor(progress: Float): Color {
     return when {
-        progress > 1.0f -> Color.Red
-        progress > 0.6f -> Color.Yellow
-        else -> Color.Cyan
+        progress > 1.0f -> {
+            Color.Red
+        }
+        progress > 0.6f -> {
+            Color.Yellow
+        }
+        else -> {
+            Color.Cyan
+        }
     }
 }
 
@@ -254,9 +262,9 @@ fun FoodCard(meal: Meal) {
                     style = textStyle,
                     softWrap = false,
                     maxLines = 1,
-                    modifier = Modifier.drawWithContent { if (readyToDraw) drawContent() },
+                    modifier = Modifier.drawWithContent { if(readyToDraw) drawContent() },
                     onTextLayout = { textLayoutResult ->
-                        if (textLayoutResult.didOverflowWidth) {
+                        if(textLayoutResult.didOverflowWidth) {
                             textStyle = textStyle.copy(fontSize = textStyle.fontSize * 0.9)
                         } else {
                             readyToDraw = true
@@ -268,37 +276,25 @@ fun FoodCard(meal: Meal) {
     }
 }
 
+//@Preview
+//@Composable
+//fun PreviewFoodSearch() {
+//    Project1PoundsTheme {
+//        FoodSearch()
+//    }
+//}
 
-@Preview
-@Composable
-fun PreviewFoodSearch() {
-    Project1PoundsTheme {
-        FoodSearch(
-            Account(
-                "first",
-                "last",
-                "email",
-                "pass",
-                67,
-                206,
-                146,
-                2000,
-            )
-        )
-    }
-}
-
-@Preview
-@Composable
-fun PreviewCalorieProgress() {
-    Project1PoundsTheme {
-        Column {
-            CalorieProgress(1.5f)
-            CalorieProgress(0.75f)
-            CalorieProgress(0.4f)
-        }
-    }
-}
+//@Preview
+//@Composable
+//fun PreviewCalorieProgress() {
+//    Project1PoundsTheme {
+//        Column {
+//            CalorieProgress(1.5f)
+//            CalorieProgress(0.75f)
+//            CalorieProgress(0.4f)
+//        }
+//    }
+//}
 
 @Preview
 @Composable
