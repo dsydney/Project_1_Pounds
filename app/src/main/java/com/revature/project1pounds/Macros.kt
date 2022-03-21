@@ -68,6 +68,7 @@ fun CalorieLimit(protein:Float, fats:Float, carbs:Float) : Int {
     return  ((protein.toInt()*4)+(fats.toInt()*9)+(carbs.toInt()*4))
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun Sliders() {
     val context = LocalContext.current
@@ -94,7 +95,7 @@ fun Sliders() {
                      accountList.getValue(activeUser).fats = fatsSliderValue.toInt()
                      accountList.getValue(activeUser).calorieGoal = CalorieLimit(proteinSliderValue,fatsSliderValue,carbsSliderValue)
                      Toast.makeText(context, "Saved changes", Toast.LENGTH_SHORT).show()
-                     context.startActivity(Intent(context, Calories::class.java))
+                     context.startActivity(Intent(context, MainActivity()::class.java))
                  }) {
                      Text(text = "Save",
                      modifier = Modifier.padding(1.dp))
