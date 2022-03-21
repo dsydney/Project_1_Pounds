@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -53,7 +54,6 @@ fun MacroScreen() {
     Row(modifier = Modifier
         .fillMaxSize()
         .paddingFromBaseline(bottom = 0.dp)) {
-       // TaskBar()
     }
 }
 
@@ -98,12 +98,12 @@ fun Sliders() {
                  }) {
                      Text(text = "Save",
                      modifier = Modifier.padding(1.dp))
-
                  }
              }
         }
     }
 
+    //sliders
     Text(text = "Protein: ${proteinSliderValue.roundToInt()}",
         color = Color.Blue,
         modifier = Modifier.padding(top = 16.dp)
@@ -123,16 +123,16 @@ fun Sliders() {
 
     Text(
         text = "Carbs: ${carbsSliderValue.roundToInt()}",
-        color = Color.Red,
+        color = Color(0xfff76314),
         modifier = Modifier.padding(top = 8.dp)
     )
     Slider(
         value = carbsSliderValue,
         valueRange = 0f..300f,
         colors = SliderDefaults.colors(
-            activeTrackColor = Color.Red,
+            activeTrackColor = Color(0xfff76314),
             inactiveTrackColor = Color.LightGray,
-            thumbColor = Color.Red),
+            thumbColor = Color(0xfff76314)),
         modifier = Modifier.padding(4.dp),
         onValueChange = { newValue ->
             carbsSliderValue = newValue
@@ -177,9 +177,7 @@ fun HealthyHints() {
         for (i in hints) {
             Row(modifier = Modifier.absolutePadding(top = 16.dp, bottom = 16.dp, left = 8.dp, right = 16.dp),
                 verticalAlignment = Alignment.CenterVertically) {
-
                 Column() {
-
                     for (i in hints) {
                         Row() {
                             Image(
@@ -207,5 +205,5 @@ fun HealthyHints() {
 @Preview
 @Composable
 fun TestMacroScreen() {
-    //MacroScreen()
+    MacroScreen()
 }
