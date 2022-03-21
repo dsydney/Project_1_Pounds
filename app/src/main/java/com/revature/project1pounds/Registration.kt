@@ -67,6 +67,7 @@ fun registrationPage()
             if(goodLogin){
                 passingProfile=Account(tempName, tempLastname, tempEmail, tempPassword)
                 accountList.put(tempEmail, passingProfile!!)
+                activeUser= passingProfile!!.email
             context.startActivity(Intent(context, PaymentOptions()::class.java))}
                          },
             colors= ButtonDefaults.buttonColors(

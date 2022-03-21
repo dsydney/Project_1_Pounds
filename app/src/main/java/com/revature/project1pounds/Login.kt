@@ -46,18 +46,17 @@ class Login : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LoginScreen()
+            Project1PoundsTheme {
+                LoginScreen()
+            }
         }
     }
 }
 
-
 @Composable
 fun LoginScreen() {
-
     Column(modifier = Modifier
         .fillMaxSize()
-        //.background()
         .padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Welcome()
         EmailPassword()
@@ -176,14 +175,9 @@ fun EmailPassword() {
     RegisterButton()
 }
 
-
-
 fun loginSuccessful(user:String, pass:String): Boolean {
-
     var userSuccessful: Boolean = false
     var passSuccessful: Boolean = false
-//    val users = listOf<String>("brandon@gmail.com", "michael@gmail.com", "david@gmail.com", "jonathan@gmail.com","f")
-//    val passwords = listOf<String>("tate", "adams", "sydney", "castaneda", "f")
 
     if ((accountList.containsKey(user))) {
         userSuccessful = true
@@ -192,15 +186,12 @@ fun loginSuccessful(user:String, pass:String): Boolean {
             passSuccessful = true
     }
 
-
-
     if (userSuccessful && passSuccessful) {
         return true
     } else {
         return false
     }
 }
-
 
 @Composable
 fun RegisterButton() {
@@ -218,9 +209,6 @@ fun RegisterButton() {
         Text("Register")
     }
 }
-
-
-
 
 @Preview
 @Composable
