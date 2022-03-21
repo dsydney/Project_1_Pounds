@@ -101,7 +101,7 @@ fun ProgressMain() {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(210.dp)
+                    .height(230.dp)
                     .padding(10.dp),
                 elevation = 12.dp,
                 shape = RoundedCornerShape(10.dp),
@@ -182,7 +182,7 @@ fun ProgressMain() {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(240.dp)
+                    .height(260.dp)
                     .padding(10.dp),
                 elevation = 12.dp,
                 shape = RoundedCornerShape(10.dp),
@@ -247,7 +247,7 @@ fun ProgressMain() {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp)
+                    .height(220.dp)
                     .padding(10.dp),
                 elevation = 12.dp,
                 shape = RoundedCornerShape(10.dp),

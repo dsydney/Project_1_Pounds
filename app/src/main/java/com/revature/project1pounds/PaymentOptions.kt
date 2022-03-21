@@ -57,7 +57,7 @@ fun paymentScreen()
             ),
             modifier = Modifier
                 .padding(2.dp)
-                .width(250.dp)
+                .width(270.dp)
                 .height(50.dp)
         )
         {
@@ -70,7 +70,7 @@ fun paymentScreen()
             ),
             modifier = Modifier
                 .padding(2.dp)
-                .width(250.dp)
+                .width(270.dp)
                 .height(50.dp)
         )
         {
@@ -80,7 +80,7 @@ fun paymentScreen()
         Surface(onClick = {  },
             modifier = Modifier
                 .height(50.dp)
-                .width(250.dp)
+                .width(270.dp)
                 .padding(2.dp)
                 .border(
                     width = 1.dp,
