@@ -64,11 +64,9 @@ fun registrationPage()
 
         Spacer(modifier = Modifier.height(40.dp))
         Button(onClick = {
-            if(goodLogin){
-                passingProfile=Account(tempName, tempLastname, tempEmail, tempPassword)
-                accountList.put(tempEmail, passingProfile!!)
-            context.startActivity(Intent(context, PaymentOptions()::class.java))}
-                         },
+
+            Log.d("Checking accounts", accountList.toString())
+            context.startActivity(Intent(context, PaymentOptions()::class.java))},
             colors= ButtonDefaults.buttonColors(
                 backgroundColor = Color(211,26,26)
             ),
@@ -115,26 +113,12 @@ fun passwordField(entry:String)
         TextField(
 
             value =text,
-            label = {
-                    if (checkPasswordLength(text.text)){
-                         Text(text="Password")
-                    }else{
-                        Text(text="Password must be between 8-12 characters")
-                    }
-            },
             onValueChange = {
                 text=it
             },
             modifier = Modifier.padding(7.dp),
-
         )
-        if(checkPasswordLength(text.text)) {
-            tempPassword = text.text
-            goodLogin=true
-        }else{
-            goodLogin=false
-        }
-
+        tempPassword=text.text
     }
 }
 @Composable
@@ -182,9 +166,3 @@ fun regPreview()
 {
     registrationPage()
 }
-fun checkPasswordLength(password:String):Boolean{
-    return password.length in 8..12
-}
-
-
-
