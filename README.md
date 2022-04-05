@@ -39,7 +39,11 @@ git clone https://github.com/dsydney/Project_1_Pounds.git
 
 ## Contributors
 
-David Sydney (github.com/dsydney)
-Brandon Tate ()
-Jonathan Castaneda ()
-Michael Adams (github.com/DietLasagna)
+* David Sydney (github.com/dsydney)
+* Brandon Tate ()
+* Jonathan Castaneda ()
+* Michael Adams (github.com/DietLasagna)
+
+## License
+
+This project uses the following license: [<license_name>](<link>).
