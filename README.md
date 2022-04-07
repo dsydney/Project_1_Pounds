@@ -2,7 +2,7 @@
 
 ## Project Description
 
-Pounds provides meal tracking with financial motivators for sticking to daily goals. Users set a Calorie limit through macronutrient goals, then track their meals and snacks. Exceeding goal limits in one day incures a cost—typically on the order of $1—which is held in a seperate, trackable account (third-party) and accessable after long-term goals are met.
+Pounds provides meal tracking with financial motivators for sticking to daily goals. Users set a Calorie limit through macronutrient goals, then track their meals and snacks. Exceeding goal limits in one day incurs a cost—typically on the order of $1—which is held in a separate, trackable account (third-party) and accessible after long-term goals are met.
 
 ## Technologies Used
 
@@ -39,11 +39,11 @@ Once installed, the app begins on a splash screen and moves to user verification
 
 ## Contributors
 
-* David Sydney (<github.com/dsydney>)
-* Brandon Tate (<github.com/tatebl>)
-* Jonathan Castaneda (<github.com/jonathancastaneda95>)
-* Michael Adams (<github.com/DietLasagna>)
+* David Sydney (<https://github.com/dsydney>)
+* Brandon Tate (<https://github.com/tatebl>)
+* Jonathan Castaneda (<https://github.com/jonathancastaneda95>)
+* Michael Adams (<https://github.com/DietLasagna>)
 
 ## License
 
-This project uses the following license: Apache-2.0(<https://www.apache.org/licenses/LICENSE-2.0.html>).
+This project uses the following license: Apache-2.0 (<https://www.apache.org/licenses/LICENSE-2.0.html>).
