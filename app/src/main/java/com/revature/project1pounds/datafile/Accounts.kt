@@ -5,7 +5,7 @@ package com.revature.project1pounds.datafile
 val accountList:MutableMap<String,Account> = mutableMapOf(
     "david@gmail.com" to Account("David",
         "Sydney",
-        "david@gmial.com",
+        "david@gmail.com",
         "sydney",
         currentCalories = 0,
         fats= 100,
